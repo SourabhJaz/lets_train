@@ -13,18 +13,22 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework.authtoken import views
-from views import (UserList, ContentList, TrainingList, 
-	TrainingContentList, EnrollmentList, UserHistoryList)
+from views import *
+from rest_framework.routers import SimpleRouter
+
+router = SimpleRouter()
+router.register(r'user', UserViewSet)
+router.register(r'content', ContentViewSet)
+router.register(r'training', TrainingViewSet)
+router.register(r'training_content', TrainingContentViewSet)
+router.register(r'enrollment', EnrollmentViewSet)
+router.register(r'assignment', AssignmentViewSet)
+router.register(r'user_history', UserHistoryViewSet)
 
 urlpatterns = [
-	url(r'^api-token-auth/', views.obtain_auth_token),
-    url(r'^api/user/', UserList.as_view()),
-    url(r'^api/content/', ContentList.as_view()),
-    url(r'^api/training/', TrainingList.as_view()),
-    url(r'^api/training_content/', TrainingContentList.as_view()),
-    url(r'^api/enrollment/', EnrollmentList.as_view()),
-    url(r'^api/user_history/', UserHistoryList.as_view()),
+	url(r'^api-token-auth', views.obtain_auth_token),
+    url(r'^api/', include(router.urls)),
 ]

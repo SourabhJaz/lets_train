@@ -6,7 +6,8 @@ from django.contrib.postgres.fields import ArrayField, JSONField
 
 class Training(models.Model):
 	name = models.CharField(max_length = 50, unique = True)
-	category = models.CharField(max_length = 30)
+	category = models.CharField(max_length = 30, default = '')
+	department = models.CharField(max_length = 30, default = '')
 	details = JSONField(default = {}, null = True)
 
 class Content(models.Model):
@@ -17,6 +18,14 @@ class Content(models.Model):
 	attributes = JSONField(default = {}, null = True)
 
 class Enrollment(models.Model):
+	user_id = models.ForeignKey(User, 
+		on_delete=models.CASCADE, null = True)
+	training_id = models.ForeignKey('Training', 
+		on_delete=models.CASCADE, null = True)
+	class Meta:
+		unique_together = ('user_id', 'training_id', )
+
+class Assignment(models.Model):
 	user_id = models.ForeignKey(User, 
 		on_delete=models.CASCADE, null = True)
 	training_id = models.ForeignKey('Training', 
