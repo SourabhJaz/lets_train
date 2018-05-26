@@ -24,9 +24,10 @@ router.register(r'user', UserViewSet)
 router.register(r'content', ContentViewSet)
 router.register(r'training', TrainingViewSet)
 router.register(r'training_content', TrainingContentViewSet)
-router.register(r'enrollment', EnrollmentViewSet)
 router.register(r'assignment', AssignmentViewSet)
 router.register(r'user_history', UserHistoryViewSet)
+router.register(r'category', CategoryViewSet)
+router.register(r'department', DepartmentViewSet)
 
 urlpatterns = [
 	url(r'^api-token-auth', views.obtain_auth_token),

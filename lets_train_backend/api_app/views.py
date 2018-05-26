@@ -15,16 +15,37 @@ from permissions import IsAdminOrReadOnly
 
 # List-create-query API view (Multiple instances)
 class UserViewSet(viewsets.ModelViewSet):
-	authentication_classes = (TokenAuthentication,)
-	permission_classes = (IsAdminOrReadOnly, )
+	# authentication_classes = (TokenAuthentication,)
+	# permission_classes = (IsAdminOrReadOnly, )
 	queryset = User.objects.all()
 	serializer_class = UserSerializer
-	filter_backends = (DjangoFilterBackend,)
-	filter_fields = ('username','email')
+	def get_serializer(self, *args, **kwargs):
+		if "data" in kwargs:
+			data = kwargs["data"]
 
+		# check if many is required
+			if isinstance(data, list):
+				kwargs["many"] = True
+
+		return super(UserViewSet, self).get_serializer(*args, **kwargs)
+	# filter_backends = (DjangoFilterBackend,)
+	# filter_fields = ('username',)
+
+class CategoryViewSet(viewsets.ModelViewSet):
+	# authentication_classes = (TokenAuthentication,)
+	# permission_classes = (IsAdminOrReadOnly, )
+	queryset = Category.objects.all()
+	serializer_class = CategorySerializer
+
+class DepartmentViewSet(viewsets.ModelViewSet):
+	# authentication_classes = (TokenAuthentication,)
+	# permission_classes = (IsAdminOrReadOnly, )
+	queryset = Department.objects.all()
+	serializer_class = DepartmentSerializer
+		
 class ContentViewSet(viewsets.ModelViewSet):
-	authentication_classes = (TokenAuthentication,)
-	permission_classes = (IsAdminOrReadOnly, )
+	# authentication_classes = (TokenAuthentication,)
+	# permission_classes = (IsAdminOrReadOnly, )
 	parser_classes = (MultiPartParser,)
 	queryset = Content.objects.all()
 	serializer_class = ContentSerializer
@@ -32,41 +53,34 @@ class ContentViewSet(viewsets.ModelViewSet):
 	filter_fields = ('title',)
 
 class TrainingViewSet(viewsets.ModelViewSet):
-	authentication_classes = (TokenAuthentication,)
-	permission_classes = (IsAdminOrReadOnly, )
+	# authentication_classes = (TokenAuthentication,)
+	# permission_classes = (IsAdminOrReadOnly, )
 	serializer_class = TrainingSerializer
 	queryset = Training.objects.all()
 	filter_backends = (DjangoFilterBackend,)
-	filter_fields = ('name', 'category','department')
+	filter_fields = ('name', 'category_id','department_id')
 
 class TrainingContentViewSet(viewsets.ModelViewSet):
-	authentication_classes = (TokenAuthentication,)
-	permission_classes = (IsAdminOrReadOnly, )
+	# authentication_classes = (TokenAuthentication,)
+	# permission_classes = (IsAdminOrReadOnly, )
 	serializer_class = TrainingContentSerializer
 	queryset = Training.objects.all()
 	filter_backends = (DjangoFilterBackend,)
-	filter_fields = ('name', 'category','department')
+	filter_fields = ('name', 'category_id','department_id')
 
 class AssignmentViewSet(viewsets.ModelViewSet):
-	authentication_classes = (TokenAuthentication,)
-	permission_classes = (IsAdminOrReadOnly,)	
-	queryset = Enrollment.objects.all()
+	# authentication_classes = (TokenAuthentication,)
+	# permission_classes = (IsAdminOrReadOnly,)	
+	queryset = Assignment.objects.all()
 	serializer_class = AssignmentSerializer
 	filter_backends = (DjangoFilterBackend,)
 	filter_fields = ('user_id', 'training_id',)
 
 class UserHistoryViewSet(viewsets.ModelViewSet):
-	authentication_classes = (TokenAuthentication,)
-	permission_classes = (IsAdminUser,)	
+	# authentication_classes = (TokenAuthentication,)
+	# permission_classes = (IsAdminUser,)	
 	queryset = UserHistory.objects.all()
 	serializer_class = UserHistorySerializer
 	filter_backends = (DjangoFilterBackend,)
 	filter_fields = ('user_id', 'content_id',)
 
-class EnrollmentViewSet(viewsets.ModelViewSet):
-	authentication_classes = (TokenAuthentication,)
-	permission_classes = (IsAuthenticated,)	
-	queryset = Enrollment.objects.all()
-	serializer_class = EnrollmentSerializer
-	filter_backends = (DjangoFilterBackend,)
-	filter_fields = ('user_id', 'training_id',)
