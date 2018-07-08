@@ -19,15 +19,12 @@ export function ajaxUtil(params){
           reject('Error in AJAX call');    	
       };
 
-      if(params.contentType){
-        req.setRequestHeader('Content-Type', params.contentType || "application/json");        
-      }
-
+      req.setRequestHeader('Content-Type', params.contentType || "application/json");        
       req.setRequestHeader('Accept', params.accept || "application/json");
 
-      if(params.token)
+      if(params.authorization)
       {
-        req.setRequestHeader('Authorization', params.token);
+        req.setRequestHeader('Authorization', params.authorization);
        }
        
     	req.send(formData);

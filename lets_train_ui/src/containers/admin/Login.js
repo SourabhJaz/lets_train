@@ -4,6 +4,9 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
+import {authenticateUser} from '../../actions/loginActions';
+import { connect } from 'react-redux';
+import compose from 'recompose/compose';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -25,6 +28,11 @@ class Login extends React.Component {
 		  password:''
 		};
 	 }
+  componentWillReceiveProps(nextProps) {
+     if(nextProps.loginAuthorized)  {
+      nextProps.history.push("/admin/");
+     }
+  }
 	_handleUsernameChange(event) {
         this.setState({
             username: event.target.value
@@ -36,7 +44,18 @@ class Login extends React.Component {
         });
     }
 	_handleClick(event){
-		console.log(this.state);
+    let formData={         
+      'username': this.state.username,
+      'password': this.state.password,
+    };
+
+    let loginData={
+      'url':'http://127.0.0.1:8000/api-token-auth/',
+      'formData':formData,
+      'method':'post'
+    }
+    this.props.dispatch(authenticateUser(loginData));
+
 	}
 	render() {
     const { classes } = this.props;
@@ -69,4 +88,13 @@ Login.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Login);
+
+function mapStateToProps(state, ownProps){
+  return {
+    loginAuthorized:state.authLogin.loginAuthorized    
+  };
+}
+
+export default compose(
+  withStyles(styles),
+  connect(mapStateToProps))(Login);

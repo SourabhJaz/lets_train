@@ -4,11 +4,12 @@ import {
  	Route,
  	Switch
 } from 'react-router-dom';
-import App from './App';
-import Login from './containers/Login';
+import AdminApp from './AdminApp';
+import Login from './containers/admin/Login';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+
 
 class Routes extends React.Component{
 	render() {
@@ -23,8 +24,8 @@ class Routes extends React.Component{
 	        </AppBar>
 			<Router >
 				<Switch>
-					<Route name="app" exact path="/" component={App} />
-					<Route name="login" path="/login" component={Login} />
+					<Route name="app" exact path="/admin/" component={AdminApp} />
+					<Route name="login" path="/admin/login" component={Login} />
 				</Switch>
 			</Router>
 			</div>

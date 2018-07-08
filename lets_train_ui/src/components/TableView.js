@@ -23,6 +23,7 @@ const styles = theme => ({
   },
   tableWrapper: {
     overflowX: 'auto',
+    overflowY: 'scroll'
   },
 });
 
@@ -63,6 +64,8 @@ class TableView extends React.Component {
                   <IconButton onClick={this.props.handleClick.bind(this, page-1)}>
                     <KeyboardArrowLeft />
                   </IconButton>
+                </TableCell>
+                <TableCell>
                   <IconButton onClick={this.props.handleClick.bind(this, page+1)}>
                     <KeyboardArrowRight />
                   </IconButton>

@@ -8,7 +8,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 		model = UserProfile
 		fields = ('employee_code', 'business_unit', 
 			'unit','function', 'location', 
-			'manager_code', 'manager_email')
+			'manager_code', 'manager_name')
 
 	def validate(self, data):
 		return data

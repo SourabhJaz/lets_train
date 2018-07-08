@@ -15,7 +15,7 @@ class UserProfile(models.Model):
 	location = models.CharField(max_length = 30,
 		null = True, default = None)
 	manager_code = models.IntegerField(default = 0)
-	manager_email = models.EmailField(max_length = 50, null = True, 
+	manager_name = models.CharField(max_length = 30, null = True, 
 		default = None)
 
 class Category(models.Model):

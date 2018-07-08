@@ -21,7 +21,7 @@ class ChipView extends React.Component{
       <div className={classes.root}>
        {this.props.chipData.map(data => {
         return(<Chip key={data.key} label={data.label} className={classes.chip} 
-          onClick={this.props.handleClick.bind(this)}/>)
+          onClick={this.props.handleClick.bind(this, data.key)}/>)
         })}
       </div>
       );

@@ -1,5 +1,5 @@
 import React from 'react';
-import ChipView from '../components/ChipView';
+import ChipView from '../../components/ChipView';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,12 +7,20 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import {postDepartment} from '../../actions/departmentActions';
+import { connect } from 'react-redux';
 
 class Department extends React.Component{
 	state = {
 	    open: false,
 	    department:'',
-	  };
+	 };
+    _makeDepartmentList(){
+    	let departmentList = this.props.departmentList;
+    	return departmentList.map(data => {
+    		return {key: data.id, label: data.department_name} 
+    	})
+    }
 	_handleClick(){
 		alert("Department");
 	};
@@ -32,16 +40,19 @@ class Department extends React.Component{
     };
     handleSubmit = () => {
     	this.setState({ open: false });
-    	alert(this.state.department);
-    };
+    	let formData={         
+	      'department_name': this.state.department
+	    };
+	    let params = {
+	        url: 'http://127.0.0.1:8000/api/department/',
+	        method: 'post',
+	        formData:formData,
+	        authorization: 'Token '+this.props.token
+	    }
+	    this.props.dispatch(postDepartment(params));
+	};
 	render() {
-		const data = [
-	      { key: 0, label: 'Angular' },
-	      { key: 1, label: 'jQuery' },
-	      { key: 2, label: 'Polymer' },
-	      { key: 3, label: 'React' },
-	      { key: 4, label: 'Vue.js' },
-	    ];		
+		const data = this._makeDepartmentList();		
 		return (
 			<div >
 				<ChipView chipData={data} handleClick={this._handleClick} 
@@ -84,4 +95,12 @@ class Department extends React.Component{
 	}	
 }
 
-export default Department;
+function mapStateToProps(state, ownProps){
+  return {
+  	token: state.authLogin.token,
+    departmentList:state.departmentData.departmentList || []   
+  };
+}
+
+
+export default connect(mapStateToProps)(Department);
