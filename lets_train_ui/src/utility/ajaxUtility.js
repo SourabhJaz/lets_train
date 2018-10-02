@@ -2,7 +2,12 @@ export function ajaxUtil(params){
 	var promiseObject = new Promise(function(resolve,reject){
     	var req, formData;
       req = new XMLHttpRequest();
-      formData= params.formData? JSON.stringify(params.formData):null;
+      if(params && params.contentType !== false){
+        formData= JSON.stringify(params.formData);
+      }
+      else{
+      	formData = params.formData;
+      }
     	req.open(params.method, params.url);
 
     	req.onload = function(){
@@ -17,9 +22,19 @@ export function ajaxUtil(params){
 
     	req.onerror = function(err) {
           reject('Error in AJAX call');    	
-      };
-
-      req.setRequestHeader('Content-Type', params.contentType || "application/json");        
+      	};
+      	req.upload.onprogress = function(event){
+    	 let progressData = {
+			  loaded: event.loaded,
+			  total: event.total    	 	
+    	 };
+    	 if(params.loadAction){
+    	 	params.loadAction(progressData);
+    	 }
+		};
+      if(params.contentType !== false){
+	    req.setRequestHeader('Content-Type', params.contentType || "application/json");        
+      }
       req.setRequestHeader('Accept', params.accept || "application/json");
 
       if(params.authorization)

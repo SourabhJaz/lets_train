@@ -1,50 +1,47 @@
 import {ajaxUtil} from '../utility/ajaxUtility';
-import {STORE_USERS,UPDATE_USERS} from '../constants/frontEndConstants';
+import {STORE_CONTENT,CONTENT_PROGRESS} from '../constants/frontEndConstants';
 import {SUCCESS, ERROR} from '../constants/frontEndConstants';
 import {setNotification} from './notificationActions';
 
-/**
-  * This action will dispatch when the user authorized, dispatching from authLoginUser action
-  */
-function storeUsers(data){
+function storeContent(data){
   return {
-   type: STORE_USERS,
+   type: STORE_CONTENT,
    data
  };
 }
 
-function updateUsers(){
+export function setContentProgress(data){
 	return {
-		type: UPDATE_USERS
+		type: CONTENT_PROGRESS,
+		data
 	}
 }
 
-export function getUsers(params){
+export function getTrainingContent(params){
     var promiseObject = ajaxUtil(params);
     return dispatch => {
      return (promiseObject).then(
-     	data => dispatch(storeUsers(data))
+      data => dispatch(storeContent(data))
       ).catch(
-     	error => console.log(error)
-  	  );
+      error => console.log(error)
+      );
    };
 }
 
-export function addUsers(params){
+export function postTrainingContent(params){
     var promiseObject = ajaxUtil(params);
     return dispatch => {
      return (promiseObject).then(
       data => {
-      	dispatch(updateUsers());
-      	dispatch(setNotification({
+          dispatch(setNotification({
             type: SUCCESS,
-            message: "Users added!"
-         }))
+            message: "Content added!"
+          }))
       }).catch(
       error => {
           dispatch(setNotification({
             type: ERROR,
-            message: "Error adding new users"
+            message: "Error in adding new content"
           }))
       });
    };

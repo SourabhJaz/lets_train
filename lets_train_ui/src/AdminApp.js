@@ -10,12 +10,14 @@ import Category from './containers/admin/Category';
 import Training from './containers/admin/Training';
 import Content from './containers/admin/Content';
 import User from './containers/admin/User';
+import CustomizedSnackbars from './components/CustomizedSnackbars';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import {getAllDepartments} from './actions/departmentActions';
 import {getAllCategories} from './actions/categoryActions';
 import {getAllTrainings} from './actions/trainingActions';
 import {loginRequest} from './actions/loginActions';
+import {getUsers} from './actions/userActions';
 
 function TabContainer(props) {
   return (
@@ -39,7 +41,7 @@ const styles = theme => ({
 
 class AdminApp extends React.Component {
   state = {
-    value: 0,
+    value: 0
   };
 
   handleChange = (event, value) => {
@@ -69,6 +71,14 @@ class AdminApp extends React.Component {
       }
       this.props.dispatch(getAllTrainings(params));       
   }
+    getAllUsers(){
+	    let params = {
+	        url: 'http://127.0.0.1:8000/api/user/',
+	        method: 'get',
+	        authorization: 'Token'+this.props.token
+	    }
+	    this.props.dispatch(getUsers(params));   
+    }
   componentWillMount() {
      if(!this.props.loginAuthorized)  {
       if(sessionStorage.getItem('token')){
@@ -78,6 +88,14 @@ class AdminApp extends React.Component {
         this.props.history.push("/admin/login");        
       }
      }
+  }
+  componentWillReceiveProps(nextProps){
+  	if(nextProps.categoryUpdated)
+  		this.getAllCategories();
+  	if(nextProps.trainingUpdated)
+  		this.getAllTrainings();
+  	if(nextProps.departmentUpdated)
+  		this.getAllDepartments();
   }
   componentDidMount(){
     this.getAllDepartments();
@@ -90,6 +108,7 @@ class AdminApp extends React.Component {
 
     return (
       <div className={classes.root}>
+        <CustomizedSnackbars />
         <AppBar position="static">
           <Tabs value={value} onChange={this.handleChange}>
             <Tab label="Department" />
@@ -99,10 +118,10 @@ class AdminApp extends React.Component {
             <Tab label="Content" />
           </Tabs>
         </AppBar>
-        {value === 0 && <TabContainer><Department /></TabContainer>}
+        {value === 0 && <TabContainer><Department  /></TabContainer>}
         {value === 1 && <TabContainer><Category /></TabContainer>}
         {value === 2 && <TabContainer><Training /></TabContainer>}
-        {value === 3 && <TabContainer><User /></TabContainer>}
+        {value === 3 && <TabContainer><User  /></TabContainer>}
         {value === 4 && <TabContainer><Content /></TabContainer>}
       </div>
     );
@@ -116,6 +135,9 @@ AdminApp.propTypes = {
 function mapStateToProps(state, ownProps){
   return {
     loginAuthorized:state.authLogin.loginAuthorized,
+    categoryUpdated:state.categoryData.updated,
+    trainingUpdated:state.trainingData.updated,
+    departmentUpdated:state.departmentData.updated,
     token:state.authLogin.token    
   };
 }

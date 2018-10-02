@@ -55,7 +55,7 @@ class Department extends React.Component{
 		const data = this._makeDepartmentList();		
 		return (
 			<div >
-				<ChipView chipData={data} handleClick={this._handleClick} 
+				<ChipView chipData={data} handleClick={function() { return false; }} 
 				 buttonLabel="Add Department" />
 				<div>
 					<Button variant="outlined" color="primary" component="span" onClick={this.handleClickOpen}>

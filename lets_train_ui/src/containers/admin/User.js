@@ -15,7 +15,7 @@ class User extends React.Component{
 	_processUserCsv(data){
 	   	let table = data.map(row =>{
 	    	return {employee_id: row[0],
-				    name: row[1],
+				    name: row[1].substring(0,30),
 				    doj: row[2],
 				    email_id: row[3],
 				    employment_status: row[4],
@@ -27,13 +27,13 @@ class User extends React.Component{
 				    role: row[10],
 				    designation: row[11],
 				    functional_appraiser: row[12],
-				    functional_appraiser_id: row[13],
+				    functional_appraiser_id: row[13]?row[13]:0,
 				    location: row[14],
 				    effective_from: row[15],	
 				    emp_count: row[16]}
 	    });
 	    let filteredUsers = table.filter(row => {
-	    	return !isNaN(row.employee_id);
+	    	return !isNaN(parseInt(row.employee_id,10));
 	    })
 	   	return filteredUsers;
 	}
@@ -64,7 +64,6 @@ class User extends React.Component{
 	        authorization: 'Token '+this.props.token
 	    }
 	    this.props.dispatch(addUsers(params));
-		console.log(postList);
 	}
 	_findDepartmentId(departmentName){
 		let departmentLowerCase = departmentName.toLowerCase();
@@ -75,18 +74,38 @@ class User extends React.Component{
 			return department.id;
 		return undefined;
 	}
-	_handleClick(Page){
-		if(Page<=0)
-			return;
-		alert("User"+Page);
+	prevClick(){
+		let prevLink = this.props.prevLink;
+		let params = {
+	        url: prevLink,
+	        method: 'get',
+	        authorization: 'Token '+this.props.token
+	    }
+	    this.props.dispatch(getUsers(params));   	
 	}
-    componentDidMount(){
-	    let params = {
+	nextClick(){
+		let nextLink = this.props.nextLink;
+		let params = {
+	        url: nextLink,
+	        method: 'get',
+	        authorization: 'Token '+this.props.token
+	    }
+	    this.props.dispatch(getUsers(params));   	
+	}
+	getAllUsers(){
+		let params = {
 	        url: 'http://127.0.0.1:8000/api/user/',
 	        method: 'get',
-	        authorization: 'Token'+this.props.token
+	        authorization: 'Token '+this.props.token
 	    }
 	    this.props.dispatch(getUsers(params));   
+	}
+    componentDidMount(){
+    	this.getAllUsers();
+    }
+ 	componentWillReceiveProps(nextProps){
+    	if(nextProps.userUpdated)
+    		this.getAllUsers();
     }
     _makeUserList(){
     	let userList = this.props.userList;
@@ -119,8 +138,9 @@ class User extends React.Component{
       			onFileLoaded={this.handleData}
     		/>
 				<TableView tableHeader={tableHeader} 
-				tableBody={tableBody} page={0} 
-				handleClick={this._handleClick}
+				tableBody={tableBody}
+				prevClick={this.prevClick.bind(this)}
+				nextClick={this.nextClick.bind(this)}
 				/>
 			</div>
 		);
@@ -132,6 +152,9 @@ function mapStateToProps(state, ownProps){
   return {
   	token: state.authLogin.token,
     userList:state.userData.userList || [],
+    prevLink:state.userData.prev || null,
+    nextLink:state.userData.next || null,
+    userUpdated:state.userData.updated,
     departmentList:state.departmentData.departmentList || []        
   };
 }

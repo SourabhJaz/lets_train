@@ -1,5 +1,7 @@
 import {ajaxUtil} from '../utility/ajaxUtility';
-import {STORE_DEPARTMENTS} from '../constants/frontEndConstants';
+import {STORE_DEPARTMENTS, UPDATE_DEPARTMENTS} from '../constants/frontEndConstants';
+import {SUCCESS, ERROR} from '../constants/frontEndConstants';
+import {setNotification} from './notificationActions';
 
 /**
   * This action will dispatch when the user authorized, dispatching from authLoginUser action
@@ -11,13 +13,30 @@ function storeDepartments(data){
  };
 }
 
+function updateDepartments(){
+  return {
+   type: UPDATE_DEPARTMENTS
+ };
+}
+
 export function postDepartment(params){
     var promiseObject = ajaxUtil(params);
     return dispatch => {
      return (promiseObject).then(
-      data => console.log(data)
+      data => {
+          dispatch(updateDepartments());
+          dispatch(setNotification({
+            type: SUCCESS,
+            message: "Department added!"
+          }))
+        }
       ).catch(
-      error => console.log(error)
+      error => {
+          dispatch(setNotification({
+            type: ERROR,
+            message: "Error in adding new department"
+          }))
+        }
       );
    };
 }

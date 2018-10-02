@@ -8,9 +8,11 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     flexWrap: 'wrap',
+    fontSize: '200%',
   },
   chip: {
     margin: theme.spacing.unit,
+    // fontSize: '60%',
   },
 });
 

@@ -26,18 +26,23 @@ class GridView extends React.Component{
     return (
       <div className={classes.root}>
       {tileData.map(tile => (
-      <Card className={classes.card}>
+      <Card key={tile.id} className={classes.card}>
           <ReactPlayer url={tile.path} 
             controls={true}
-            volume={true}
+            config={{
+                file:{
+                  attributes:{
+                    controlsList:"nodownload"
+                  }
+                }
+            }}
            />            
           <CardContent>
             <Typography gutterBottom variant="headline" component="h2">
               {tile.title}
             </Typography>
             <Typography component="p">
-              Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-              across all continents except Antarctica
+              {tile.attributes?tile.attributes.description:''}
             </Typography>
           </CardContent>
       </Card>

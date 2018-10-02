@@ -1,16 +1,16 @@
-import {STORE_TRAININGS,STORE_CONTENT} from '../constants/frontEndConstants';
+import {STORE_TRAININGS,UPDATE_TRAININGS} from '../constants/frontEndConstants';
 
 export function trainingData(state={},action){
   switch (action.type) {
    case STORE_TRAININGS:
-      let trainingList = action.data.results;   
+      let trainingList = action.data;   
       return Object.assign({}, state, {
-        "trainingList":trainingList
+        "trainingList":trainingList,
+        "updated":false
       });
-   case STORE_CONTENT:
-      let contentList = action.data.training_content;   
+   case UPDATE_TRAININGS:
       return Object.assign({}, state, {
-        "contentList":contentList
+        "updated":true
       });   
    default:
      return state;

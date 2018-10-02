@@ -1,5 +1,7 @@
 import {ajaxUtil} from '../utility/ajaxUtility';
-import {STORE_TRAININGS, STORE_CONTENT} from '../constants/frontEndConstants';
+import {STORE_TRAININGS, UPDATE_TRAININGS} from '../constants/frontEndConstants';
+import {SUCCESS, ERROR} from '../constants/frontEndConstants';
+import {setNotification} from './notificationActions';
 
 /**
   * This action will dispatch when the user authorized, dispatching from authLoginUser action
@@ -11,10 +13,9 @@ function storeTrainings(data){
  };
 }
 
-function storeContent(data){
+function updateTrainings(){
   return {
-   type: STORE_CONTENT,
-   data
+   type: UPDATE_TRAININGS
  };
 }
 
@@ -29,24 +30,22 @@ export function getAllTrainings(params){
    };
 }
 
-export function getTrainingContent(params){
+export function postTraining(params){
     var promiseObject = ajaxUtil(params);
     return dispatch => {
      return (promiseObject).then(
-      data => dispatch(storeContent(data))
-      ).catch(
-      error => console.log(error)
-      );
-   };
-}
-
-export function postTrainingContent(params){
-    var promiseObject = ajaxUtil(params);
-    return dispatch => {
-     return (promiseObject).then(
-      data => console.log(data)
-      ).catch(
-      error => console.log(error)
-      );
+      data => {
+        dispatch(updateTrainings());
+        dispatch(setNotification({
+            type: SUCCESS,
+            message: "Training added!"
+          }))
+      }).catch(
+      error => {
+          dispatch(setNotification({
+            type: ERROR,
+            message: "Error in adding new training"
+          }))
+      });
    };
 }

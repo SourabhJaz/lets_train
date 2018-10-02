@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
+import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -21,8 +22,14 @@ const styles = theme => ({
 });
 
 class SelectView extends React.Component {
+  state={
+    value:''
+  };
   handleChange = event => {
-    this.props.handleSelect(event.target.value);
+    this.setState({
+      value:event.target.value
+    });
+    this.props.handleSelect(event);
   };
 
   render() {
@@ -30,10 +37,11 @@ class SelectView extends React.Component {
     return (
       <form className={classes.root} autoComplete="off">
         <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="age-simple">{this.props.title}</InputLabel>
+          <InputLabel htmlFor="simple">{this.props.title}</InputLabel>
           <Select
             onChange={this.handleChange}
-            value={''}
+            value={this.state.value}
+            input={<Input id="simple" />}
           >
           {this.props.menuData.map(data => {
               return (<MenuItem key={data.key} value={data.key}>{data.label}</MenuItem>)

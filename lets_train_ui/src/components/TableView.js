@@ -29,7 +29,7 @@ const styles = theme => ({
 
 class TableView extends React.Component {
   render() {
-    const { classes, page } = this.props;
+    const { classes } = this.props;
 
     return (
       <Paper className={classes.root}>
@@ -58,15 +58,12 @@ class TableView extends React.Component {
             <TableFooter>
               <TableRow>
                 <TableCell>
-                  Page number: {page}
-                </TableCell>
-                <TableCell>
-                  <IconButton onClick={this.props.handleClick.bind(this, page-1)}>
+                  <IconButton onClick={this.props.prevClick.bind(this)}>
                     <KeyboardArrowLeft />
                   </IconButton>
                 </TableCell>
                 <TableCell>
-                  <IconButton onClick={this.props.handleClick.bind(this, page+1)}>
+                  <IconButton onClick={this.props.nextClick.bind(this)}>
                     <KeyboardArrowRight />
                   </IconButton>
                 </TableCell>
