@@ -57,14 +57,6 @@ class DepartmentSerializer(serializers.ModelSerializer):
 		data['department_name'] = department_name.lower()
 		return data 
 
-class ContentSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = Content
-		fields = '__all__'
-
-	def validate(self, data):
-		return data 
-
 class TrainingSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Training
@@ -72,6 +64,24 @@ class TrainingSerializer(serializers.ModelSerializer):
 
 	def validate(self, data):
 		return data 
+
+# To serialise many-to-many fields with multipart data (videos)
+class MultipartM2MField(serializers.Field):
+    def to_representation(self, obj):
+        return obj.values_list('id', flat=True).order_by('id')
+
+    def to_internal_value(self, data):
+        return data.split(',') if data else None
+
+class ContentSerializer(serializers.ModelSerializer):
+	training_id = MultipartM2MField()
+	class Meta:
+		model = Content
+		fields = '__all__'
+
+	def validate(self, data):
+		return data 
+
 
 class TrainingContentSerializer(serializers.ModelSerializer):
 	training_content = ContentSerializer(many = True, read_only = True)

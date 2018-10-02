@@ -6,17 +6,17 @@ from django.contrib.postgres.fields import ArrayField, JSONField
 class UserProfile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	employee_code = models.IntegerField(unique = True, default = 0)
-	business_unit = models.CharField(max_length = 30,
-		null = True, default = None)
-	unit = models.CharField(max_length = 30,
-		null = True, default = None)
-	function = models.CharField(max_length = 30,
-		null = True, default = None)
-	location = models.CharField(max_length = 30,
-		null = True, default = None)
-	manager_code = models.IntegerField(default = 0)
-	manager_name = models.CharField(max_length = 30, null = True, 
-		default = None)
+	business_unit = models.CharField(max_length = 50,
+		blank=True, null = True, default = None)
+	unit = models.CharField(max_length = 50,
+		blank=True, null = True, default = None)
+	function = models.CharField(max_length = 50,
+		blank=True, null = True, default = None)
+	location = models.CharField(max_length = 50,
+		blank=True, null = True, default = None)
+	manager_code = models.IntegerField(blank=True, null=True, default = 0)
+	manager_name = models.CharField(max_length = 50, 
+		blank=True, null = True, default = None)
 
 class Category(models.Model):
 	category_name = models.CharField(max_length = 30, unique = True, 

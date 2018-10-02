@@ -32,18 +32,21 @@ class UserViewSet(viewsets.ModelViewSet):
 	# filter_fields = ('username',)
 
 class CategoryViewSet(viewsets.ModelViewSet):
+	pagination_class = None
 	authentication_classes = (TokenAuthentication,)
 	permission_classes = (IsAdminOrReadOnly, )
 	queryset = Category.objects.all()
 	serializer_class = CategorySerializer
 
 class DepartmentViewSet(viewsets.ModelViewSet):
+	pagination_class = None
 	authentication_classes = (TokenAuthentication,)
 	permission_classes = (IsAdminOrReadOnly, )
 	queryset = Department.objects.all()
 	serializer_class = DepartmentSerializer
 		
 class ContentViewSet(viewsets.ModelViewSet):
+	pagination_class = None
 	authentication_classes = (TokenAuthentication,)
 	permission_classes = (IsAdminOrReadOnly, )
 	parser_classes = (MultiPartParser,)
@@ -53,6 +56,7 @@ class ContentViewSet(viewsets.ModelViewSet):
 	filter_fields = ('title',)
 
 class TrainingViewSet(viewsets.ModelViewSet):
+	pagination_class = None
 	authentication_classes = (TokenAuthentication,)
 	permission_classes = (IsAdminOrReadOnly, )
 	serializer_class = TrainingSerializer
