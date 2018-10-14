@@ -4,19 +4,20 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
+import Button from '@material-ui/core/Button';
+import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Department from './containers/admin/Department';
 import Category from './containers/admin/Category';
 import Training from './containers/admin/Training';
 import Content from './containers/admin/Content';
 import User from './containers/admin/User';
-import CustomizedSnackbars from './components/CustomizedSnackbars';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import {getAllDepartments} from './actions/departmentActions';
 import {getAllCategories} from './actions/categoryActions';
 import {getAllTrainings} from './actions/trainingActions';
-import {loginRequest} from './actions/loginActions';
+import {loginRequest, logout} from './actions/loginActions';
 import {getUsers} from './actions/userActions';
 
 function TabContainer(props) {
@@ -71,14 +72,18 @@ class AdminApp extends React.Component {
       }
       this.props.dispatch(getAllTrainings(params));       
   }
-    getAllUsers(){
-	    let params = {
-	        url: 'http://127.0.0.1:8000/api/user/',
-	        method: 'get',
-	        authorization: 'Token'+this.props.token
-	    }
-	    this.props.dispatch(getUsers(params));   
+  getAllUsers(){
+    let params = {
+        url: 'http://127.0.0.1:8000/api/user/',
+        method: 'get',
+        authorization: 'Token'+this.props.token
     }
+    this.props.dispatch(getUsers(params));   
+  }
+  logoutRequest(){
+      this.props.dispatch(logout());
+      this.props.history.push("/admin/login");              
+  }
   componentWillMount() {
      if(!this.props.loginAuthorized)  {
       if(sessionStorage.getItem('token')){
@@ -108,9 +113,13 @@ class AdminApp extends React.Component {
 
     return (
       <div className={classes.root}>
-        <CustomizedSnackbars />
         <AppBar position="static">
-          <Tabs value={value} onChange={this.handleChange}>
+          <Toolbar color="default">
+             <Button variant="raised" className={classes.button} onClick={this.logoutRequest.bind(this)} >
+              Log out
+             </Button>
+          </Toolbar>
+          <Tabs value={value} onChange={this.handleChange} color="primary">
             <Tab label="Department" />
             <Tab label="Category" />
             <Tab label="Training" />

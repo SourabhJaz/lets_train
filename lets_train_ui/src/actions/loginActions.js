@@ -1,6 +1,6 @@
 import {ajaxUtil} from '../utility/ajaxUtility';
 import {LOGIN_SUCCESS, LOGIN_FAIL, 
-  LOGIN_REQUEST} from '../constants/frontEndConstants';
+  LOGIN_REQUEST, LOGOUT} from '../constants/frontEndConstants';
 import {SUCCESS, ERROR} from '../constants/frontEndConstants';
 import {setNotification} from './notificationActions';
 
@@ -28,6 +28,12 @@ export function loginRequest(){
   return {
    type: LOGIN_REQUEST
  };
+}
+
+export function logout(){
+  return {
+    type: LOGOUT
+  };
 }
 
 export function authenticateUser(loginData){

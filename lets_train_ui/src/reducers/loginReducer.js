@@ -1,5 +1,5 @@
 import {LOGIN_SUCCESS, LOGIN_REQUEST,
-  LOGIN_FAIL} from '../constants/frontEndConstants';
+  LOGIN_FAIL, LOGOUT} from '../constants/frontEndConstants';
 
 export function authLogin(state={},action){
   switch (action.type) {
@@ -23,6 +23,13 @@ export function authLogin(state={},action){
         "loginAuthorized":false,
         "token":null,
         "error":action.data
+      });
+   case LOGOUT:
+      sessionStorage.removeItem('token');
+      return Object.assign({}, state, {
+        "loginAuthorized":false,
+        "token": null,
+        "error": null
       });
    default:
      return state;
