@@ -19,8 +19,7 @@ class Training extends React.Component{
 	state = {
 	    open: false,
 	    training:'',
-	    category:'',
-	    department:''
+	    category:''
 	 };	
     _makeTrainingList(){
     	let	trainingList = this.props.trainingList;
@@ -33,20 +32,14 @@ class Training extends React.Component{
             training: event.target.value
         });
     };
-    _handleCategorySelect(event){
+    _handleSelect(event){
         this.setState({
             category: event.target.value
-        });    	
-    };
-    _handleDepartmentSelect(event){
-        this.setState({
-            department: event.target.value
         });    	
     };
     handleClickOpen = () => {
 	    this.setState({ 
 	    	open: true,
-	    	category:'',
 	    	department: '' 
 	    });
 	};
@@ -57,8 +50,7 @@ class Training extends React.Component{
     	this.setState({ open: false });
     	let formData={         
 	      'name': this.state.training,
-	      'category': this.state.category,
-	      'department': this.state.department,
+	      'category_id': this.state.category,
 	      'details': {}
 	    };
 	    let params = {
@@ -71,8 +63,7 @@ class Training extends React.Component{
 	};
 	render() {
 		const data = this._makeTrainingList();
-		const categoryList = this.props.categoryList;	
-		const departmentList = this.props.departmentList;	
+		const categoryList = this.props.categoryList;		
 		return (
 			<div >
 				<ChipView chipData={data} handleClick={function() { return false; }}/>
@@ -100,7 +91,7 @@ class Training extends React.Component{
 					<InputLabel htmlFor="select-category">Select category</InputLabel>				    
 					<Select
 						value={this.state.category}
-						onChange={this._handleCategorySelect.bind(this)}
+						onChange={this._handleSelect.bind(this)}
 						input={<Input id="select-category" />}
 					>
 					{categoryList.map(data=>
@@ -111,20 +102,7 @@ class Training extends React.Component{
 						</MenuItem>)
 					)}
 					</Select>
-					<InputLabel htmlFor="select-category">Select department</InputLabel>				    
-					<Select
-						value={this.state.department}
-						onChange={this._handleDepartmentSelect.bind(this)}
-						input={<Input id="select-department" />}
-					>
-					{departmentList.map(data=>
-						(<MenuItem
-						key={data.id}
-						value={data.id}>
-						{data.department_name}
-						</MenuItem>)
-					)}
-					</Select>
+
 				  </DialogContent>
 				  <DialogActions>
 				    <Button onClick={this.handleClose} color="primary">
@@ -145,7 +123,6 @@ function mapStateToProps(state, ownProps){
   return {
   	token:state.authLogin.token,    
     trainingList:state.trainingData.trainingList || [],
-    departmentList:state.departmentData.departmentList || [],
     categoryList:state.categoryData.categoryList || []      
   };
 }

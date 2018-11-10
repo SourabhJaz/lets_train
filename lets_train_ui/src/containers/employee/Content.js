@@ -71,7 +71,7 @@ class Content extends React.Component{
         formData.append('attributes',JSON.stringify({
         	description:this.state.content_description
         }))  
-        formData.append('training',this.state.training)  
+        formData.append('training_id',this.state.training)  
 	    let params = {
 	        url: 'http://127.0.0.1:8000/api/content/',
 	        method: 'post',

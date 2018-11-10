@@ -7,11 +7,8 @@ import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Department from './containers/admin/Department';
-import Category from './containers/admin/Category';
-import Training from './containers/admin/Training';
-import Content from './containers/admin/Content';
-import User from './containers/admin/User';
+import Department from './containers/employee/Department';
+import Category from './containers/employee/Category';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import {getAllDepartments} from './actions/departmentActions';
@@ -40,7 +37,7 @@ const styles = theme => ({
   },
 });
 
-class AdminApp extends React.Component {
+class EmployeeApp extends React.Component {
   state = {
     value: 0
   };
@@ -82,7 +79,7 @@ class AdminApp extends React.Component {
   }
   logoutRequest(){
       this.props.dispatch(logout());
-      this.props.history.push("/admin/login");              
+      this.props.history.push("/login");              
   }
   componentWillMount() {
      if(!this.props.loginAuthorized)  {
@@ -90,7 +87,7 @@ class AdminApp extends React.Component {
         this.props.dispatch(loginRequest());
       }
       else{
-        this.props.history.push("/admin/login");        
+        this.props.history.push("/login");        
       }
      }
   }
@@ -124,22 +121,16 @@ class AdminApp extends React.Component {
           <Tabs value={value} onChange={this.handleChange} color="primary">
             <Tab label="Department" />
             <Tab label="Category" />
-            <Tab label="Training" />
-            <Tab label="User" />
-            <Tab label="Content" />
           </Tabs>
         </AppBar>
         {value === 0 && <TabContainer><Department  /></TabContainer>}
         {value === 1 && <TabContainer><Category /></TabContainer>}
-        {value === 2 && <TabContainer><Training /></TabContainer>}
-        {value === 3 && <TabContainer><User  /></TabContainer>}
-        {value === 4 && <TabContainer><Content /></TabContainer>}
       </div>
     );
   }
 }
 
-AdminApp.propTypes = {
+EmployeeApp.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
@@ -155,4 +146,4 @@ function mapStateToProps(state, ownProps){
 
 export default compose(
   withStyles(styles),
-  connect(mapStateToProps))(AdminApp);
+  connect(mapStateToProps))(EmployeeApp);

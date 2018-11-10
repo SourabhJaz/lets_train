@@ -20,7 +20,7 @@ const styles = theme => ({
   },
 });
 
-class Login extends React.Component {
+class AdminLogin extends React.Component {
 	constructor(props){
 	  super(props);
 	  this.state={
@@ -84,7 +84,7 @@ class Login extends React.Component {
 	  }
 }
 
-Login.propTypes = {
+AdminLogin.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
@@ -97,4 +97,4 @@ function mapStateToProps(state, ownProps){
 
 export default compose(
   withStyles(styles),
-  connect(mapStateToProps))(Login);
+  connect(mapStateToProps))(AdminLogin);
