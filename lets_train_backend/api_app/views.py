@@ -8,6 +8,9 @@ from django.contrib.auth.models import User
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.parsers import MultiPartParser
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from django.db import connection
 # User defined 
 from models import *
 from serializers import *
@@ -15,8 +18,8 @@ from permissions import IsAdminOrReadOnly
 
 # List-create-query API view (Multiple instances)
 class UserViewSet(viewsets.ModelViewSet):
-	authentication_classes = (TokenAuthentication,)
-	permission_classes = (IsAdminOrReadOnly, )
+	# authentication_classes = (TokenAuthentication,)
+	# permission_classes = (IsAdminOrReadOnly, )
 	queryset = User.objects.all()
 	serializer_class = UserSerializer
 	def get_serializer(self, *args, **kwargs):
@@ -28,8 +31,23 @@ class UserViewSet(viewsets.ModelViewSet):
 				kwargs["many"] = True
 
 		return super(UserViewSet, self).get_serializer(*args, **kwargs)
-	# filter_backends = (DjangoFilterBackend,)
-	# filter_fields = ('username',)
+
+	@action(detail=True, methods=['get'])
+	def department_training(self, request, pk=None):
+		user_id = pk
+		with connection.cursor() as cursor:
+			cursor.execute('''Select api_app_userprofile.department_id 
+				from api_app_userprofile 
+				where api_app_userprofile.employee_code = %s''', [user_id])
+			department_id = cursor.fetchone()
+		queryset = Training.objects.raw('''Select * 
+			from api_app_training 
+			where api_app_training.department_id = %s''', [department_id])
+		serializer = TrainingSerializer(queryset, many=True)
+		return Response(serializer.data)
+
+	filter_backends = (DjangoFilterBackend,)
+	filter_fields = ('username',)
 
 class CategoryViewSet(viewsets.ModelViewSet):
 	pagination_class = None
@@ -88,3 +106,11 @@ class UserHistoryViewSet(viewsets.ModelViewSet):
 	filter_backends = (DjangoFilterBackend,)
 	filter_fields = ('user_id', 'content_id',)
 
+class UserDepartmentTraining(viewsets.ModelViewSet):
+    def list(self, request):
+		request_data = request.data
+		user_id = request_data.user_id
+		department_id = User.objects.raw("Select department_id from api_app_userprofile where username = %s",[user_id])
+		queryset = Training.objects.raw('Select * from api_app_training where department_id = %s', [department_id]),
+		serializer = TrainingSerializer(queryset, many=True)
+		return Response(serializer.data)

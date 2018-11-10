@@ -8,7 +8,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 		model = UserProfile
 		fields = ('employee_code', 'business_unit', 
 			'unit','function', 'location', 
-			'manager_code', 'manager_name')
+			'manager_code', 'manager_name', 'department')
 
 	def validate(self, data):
 		return data
@@ -19,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = User
 		fields = ('id', 'username', 'first_name', 'last_name', 'email', 
-			'password', 'is_staff', 'userprofile',)
+			'password', 'is_staff', 'userprofile')
 		write_only = ('password',)
 		read_only = ('id',)
 
@@ -74,7 +74,7 @@ class MultipartM2MField(serializers.Field):
         return data.split(',') if data else None
 
 class ContentSerializer(serializers.ModelSerializer):
-	training_id = MultipartM2MField()
+	training = MultipartM2MField()
 	class Meta:
 		model = Content
 		fields = '__all__'
@@ -85,8 +85,8 @@ class ContentSerializer(serializers.ModelSerializer):
 
 class TrainingContentSerializer(serializers.ModelSerializer):
 	training_content = ContentSerializer(many = True, read_only = True)
-	category = CategorySerializer(source = 'category_id', read_only = True)
-	department = DepartmentSerializer(source = 'department_id', read_only = True)
+	category = CategorySerializer(read_only = True)
+	department = DepartmentSerializer(read_only = True)
 	class Meta:
 		model = Training
 		fields = ('name', 'category', 'department', 'details', 'training_content')
@@ -95,23 +95,21 @@ class TrainingContentSerializer(serializers.ModelSerializer):
 		return data 
 
 class AssignmentSerializer(serializers.ModelSerializer):
-	user = UserSerializer(source = 'user_id', read_only = True)
-	training = TrainingSerializer(source = 'training_id', read_only = True)
+	user = UserSerializer(read_only = True)
+	training = TrainingSerializer(read_only = True)
 	class Meta:
 		model = Assignment
-		fields = ('user_id', 'training_id', 
-			'user', 'training')
+		fields = ('user', 'training')
 
 	def validate(self, data):
 		return data 
 
 class UserHistorySerializer(serializers.ModelSerializer):
-	user = UserSerializer(source = 'user_id', read_only = True)
-	content = ContentSerializer(source = 'content_id', read_only = True)
+	user = UserSerializer(read_only = True)
+	content = ContentSerializer(read_only = True)
 	class Meta:
 		model = UserHistory
-		fields = ('user_id', 'content_id', 
-		'user', 'content')
+		fields = ('user', 'content')
 
 	def validate(self, data):
 		return data 

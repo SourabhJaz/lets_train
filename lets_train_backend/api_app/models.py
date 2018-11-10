@@ -3,8 +3,18 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.contrib.postgres.fields import ArrayField, JSONField
 
+class Department(models.Model):
+	department_name = models.CharField(max_length = 30, unique = True, 
+		null = True, default = None)
+
+class Category(models.Model):
+	category_name = models.CharField(max_length = 30, unique = True, 
+		null = True, default = None)
+
 class UserProfile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	department = models.ForeignKey(Department, on_delete=models.CASCADE, 
+		null = True)
 	employee_code = models.IntegerField(unique = True, default = 0)
 	business_unit = models.CharField(max_length = 50,
 		blank=True, null = True, default = None)
@@ -18,41 +28,33 @@ class UserProfile(models.Model):
 	manager_name = models.CharField(max_length = 50, 
 		blank=True, null = True, default = None)
 
-class Category(models.Model):
-	category_name = models.CharField(max_length = 30, unique = True, 
-		null = True, default = None)
-
-class Department(models.Model):
-	department_name = models.CharField(max_length = 30, unique = True, 
-		null = True, default = None)
-
 class Training(models.Model):
 	name = models.CharField(max_length = 50, unique = True)
-	category_id = models.ForeignKey(Category, on_delete=models.CASCADE, 
+	category = models.ForeignKey(Category, on_delete=models.CASCADE, 
 		null = True)
-	department_id = models.ForeignKey(Department, on_delete=models.CASCADE, 
+	department = models.ForeignKey(Department, on_delete=models.CASCADE, 
 		null = True)
 	details = JSONField(default = {}, null = True)
 
 class Content(models.Model):
 	title = models.CharField(max_length = 30)
 	path = models.FileField()
-	training_id = models.ManyToManyField('Training', 
+	training = models.ManyToManyField('Training', 
 		related_name='training_content')
 	attributes = JSONField(default = {}, null = True)
 
 class Assignment(models.Model):
-	user_id = models.ForeignKey(User, 
+	user = models.ForeignKey(User, 
 		on_delete=models.CASCADE, null = True)
-	training_id = models.ForeignKey('Training', 
+	training = models.ForeignKey('Training', 
 		on_delete=models.CASCADE, null = True)
 	class Meta:
-		unique_together = ('user_id', 'training_id', )
+		unique_together = ('user', 'training', )
 
 class UserHistory(models.Model):
-	user_id = models.ForeignKey(User, 
+	user = models.ForeignKey(User, 
 		on_delete=models.CASCADE, null = True)
-	content_id = models.ForeignKey('Content', 
+	content = models.ForeignKey('Content', 
 		on_delete=models.CASCADE, null = True)
 	class Meta:
-		unique_together = ('user_id', 'content_id', )
+		unique_together = ('user', 'content', )
