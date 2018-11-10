@@ -1,13 +1,13 @@
 POST
 User:
 [{
-  "username":00000,
+  "username":"00000",
   "first_name":"raghav",
   "email":"raghav.g@domain.country",
   "password":"1234",
   "userprofile":{
-  	  "employee_code": 00000,
-      "dapartment_id": 1,
+  	  "employee_code": "00000",
+      "dapartment": 1,
       "business_unit": "HQ",
       "unit": "Technical",
       "function": "Engineer",
@@ -31,7 +31,7 @@ Department:
 Training:
 {
   "name": "Testing",
-  "category_id": 1,
+  "category": 1,
   "details": {}
 }
 
@@ -40,21 +40,21 @@ Content:
   "title": "Black-box",
   "path": "http://127.0.0.1:8000/media/Screen_Shot_2018-05-25_at_10.25.06_PM.png",
   "attributes": {},
-  "training_id": [
+  "training": [
       3
   ]
 }
 
 Assignment:
 {
-  "user_id": 1,
-  "training_id": 2
+  "user": 1,
+  "training": 2
 }
 
 UserHistory:
 {
-  "user_id": 1,
-  "content_id": 2
+  "user": 1,
+  "content": 2
 }
 
 GET
@@ -79,7 +79,8 @@ USER:
                 "function": null,
                 "location": null,
                 "manager_code": 0,
-                "manager_email": null
+                "manager_email": null,
+                "department": null
             }
         }
     ]
