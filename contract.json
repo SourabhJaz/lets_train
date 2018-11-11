@@ -105,3 +105,8 @@ CONTENT:
     "training_id": [3]
   }]
 }
+USER_DEPARTMENT_TRAINING:
+http://localhost:8000/api/user/65465/department_training/
+
+CATEGORY_TRAINING:
+http://localhost:8000/api/category/2/category_training/

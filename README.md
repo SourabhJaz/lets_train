@@ -34,11 +34,19 @@
 
 ## Creating admin user:
 
+Comment authentication in *lets_train_backend/api_app/views.py*
+
+`	# authentication_classes = (TokenAuthentication,)`
+
+`	# permission_classes = (IsAdminOrReadOnly, )`
+
+
 **URL**: localhost:8000/api/user/
+
 **POST**:
  [{
  
-  "username":"00000",
+ "username":"admin",
  
  "first_name":"admin",
  
@@ -55,5 +63,7 @@
  "is_staff": true
 
 }]
+
+Uncomment authentication in *lets_train_backend/api_app/views.py*
 
 *Go to localhost:3000/admin/ on your browser.*
