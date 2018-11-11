@@ -39,11 +39,12 @@ class User extends React.Component{
 	}
 	_postUsers(userList){
 		let postList = userList.map(data => {
+		let password = this._createRandomPassword();
 			return {
 				  "username":data.employee_id,
 				  "first_name":data.name,
 				  "email":data.email_id,
-				  "password":data.employee_id,
+				  "password":password,
 				  "userprofile":{
 				  	  "employee_code":data.employee_id,
 				      "department_id": this._findDepartmentId(data.department),
@@ -64,6 +65,17 @@ class User extends React.Component{
 	        authorization: 'Token '+this.props.token
 	    }
 	    this.props.dispatch(addUsers(params));
+	}
+	_createRandomPassword(){
+		const str = `abcdefghijklmn`+
+		`opqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#`;
+		let passwordLength = Math.ceil(Math.random()*4)+3;
+		let password = '', index;
+		while(passwordLength--){
+			index = Math.floor(Math.random()*64);
+			password += str[index];
+		}
+		return password;
 	}
 	_findDepartmentId(departmentName){
 		let departmentLowerCase = departmentName.toLowerCase();

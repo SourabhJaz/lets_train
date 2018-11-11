@@ -18,7 +18,7 @@
 
 ## Backend setup:
 
-- Go to lets_train_backend
+- Go to backend folder *lets_train_backend*
 - virtualenv venv
 - source venv/bin/activate
 - pip install -r requirements.txt
@@ -28,7 +28,7 @@
 
 ## Frontend setup:
 
-- Go to lets_train_ui
+- Go to frontend folder *lets_train_ui*
 - npm install
 - npm start
 
@@ -36,33 +36,34 @@
 
 - Comment authentication in *lets_train_backend/api_app/views.py*
 
-`	# authentication_classes = (TokenAuthentication,)`
+  - `	# authentication_classes = (TokenAuthentication,)`
 
-`	# permission_classes = (IsAdminOrReadOnly, )`
+  - `	# permission_classes = (IsAdminOrReadOnly, )`
 
 
-- **URL**: localhost:8000/api/user/
+- **URL**: *localhost:8000/api/user/*
 
 - **POST**:
- [{
  
- "username":"admin",
- 
- "first_name":"admin",
- 
- "last_name":"",
- 
- "email":"admin@localhost.com",
- 
- "password":"1234",
- 
- "userprofile":{
-  	  "employee_code":"00000"
-  },
- 
- "is_staff": true
+   [{
 
-}]
+        "username":"admin",
+
+        "first_name":"admin",
+
+        "last_name":"",
+
+        "email":"admin@localhost.com",
+
+        "password":"1234",
+
+        "userprofile":{
+            "employee_code":"00000"
+         },
+
+        "is_staff": true
+
+  }]
 
 - Uncomment authentication in *lets_train_backend/api_app/views.py*
 
