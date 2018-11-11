@@ -6,7 +6,7 @@ import {setNotification} from './notificationActions';
 /**
   * This action will dispatch when the user authorized, dispatching from authLoginUser action
   */
-function storeTrainings(data){
+export function storeTrainings(data){
   return {
    type: STORE_TRAININGS,
    data
@@ -25,8 +25,8 @@ export function getAllTrainings(params){
      return (promiseObject).then(
      	data => dispatch(storeTrainings(data))
       ).catch(
-     	error => console.log(error)
-  	  );
+     	error => { console.log(error) 
+      });
    };
 }
 

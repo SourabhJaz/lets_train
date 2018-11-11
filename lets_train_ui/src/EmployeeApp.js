@@ -7,15 +7,14 @@ import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Department from './containers/employee/Department';
-import Category from './containers/employee/Category';
+import DepartmentTraining from './containers/employee/DepartmentTraining';
+import CategoryTraining from './containers/employee/CategoryTraining';
+import Assignment from './containers/employee/Assignment';
+import Profile from './containers/employee/Profile';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
-import {getAllDepartments} from './actions/departmentActions';
 import {getAllCategories} from './actions/categoryActions';
-import {getAllTrainings} from './actions/trainingActions';
-import {loginRequest, logout} from './actions/loginActions';
-import {getUsers} from './actions/userActions';
+import {logout} from './actions/loginActions';
 
 function TabContainer(props) {
   return (
@@ -45,66 +44,24 @@ class EmployeeApp extends React.Component {
   handleChange = (event, value) => {
     this.setState({ value });
   };
-  getAllDepartments(){
-      let params = {
-          url: 'http://127.0.0.1:8000/api/department/',
-          method: 'get',
-          authorization: 'Token'+this.props.token
-      }
-      this.props.dispatch(getAllDepartments(params));       
-  }
   getAllCategories(){
       let params = {
           url: 'http://127.0.0.1:8000/api/category/',
           method: 'get',
-          authorization: 'Token'+this.props.token
+          authorization: 'Token '+this.props.token
       }
       this.props.dispatch(getAllCategories(params));       
-  }
-  getAllTrainings(){
-      let params = {
-          url: 'http://127.0.0.1:8000/api/training/',
-          method: 'get',
-          authorization: 'Token'+this.props.token
-      }
-      this.props.dispatch(getAllTrainings(params));       
-  }
-  getAllUsers(){
-    let params = {
-        url: 'http://127.0.0.1:8000/api/user/',
-        method: 'get',
-        authorization: 'Token'+this.props.token
-    }
-    this.props.dispatch(getUsers(params));   
   }
   logoutRequest(){
       this.props.dispatch(logout());
       this.props.history.push("/login");              
   }
   componentWillMount() {
-     if(!this.props.loginAuthorized)  {
-      if(sessionStorage.getItem('token')){
-        this.props.dispatch(loginRequest());
-      }
-      else{
+     if(!this.props.loginAuthorized)
         this.props.history.push("/login");        
-      }
-     }
-  }
-  componentWillReceiveProps(nextProps){
-    if(!nextProps.loginAuthorized)
-      return;
-  	if(nextProps.categoryUpdated)
-  		this.getAllCategories();
-  	if(nextProps.trainingUpdated)
-  		this.getAllTrainings();
-  	if(nextProps.departmentUpdated)
-  		this.getAllDepartments();
   }
   componentDidMount(){
-    this.getAllDepartments();
     this.getAllCategories();
-    this.getAllTrainings();
   }
   render() {
     const { classes } = this.props;
@@ -114,17 +71,22 @@ class EmployeeApp extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar color="default">
-             <Button variant="raised" className={classes.button} onClick={this.logoutRequest.bind(this)} >
+             <Button variant="raised" color="secondary" className={classes.button} onClick={this.logoutRequest.bind(this)} >
               Log out
              </Button>
           </Toolbar>
-          <Tabs value={value} onChange={this.handleChange} color="primary">
-            <Tab label="Department" />
-            <Tab label="Category" />
+          <Tabs value={value} onChange={this.handleChange} 
+            centered >
+            <Tab label="Categories" />
+            <Tab label="Department Trainings" />
+            <Tab label="Assignments" />
+            <Tab label="Profile" />
           </Tabs>
         </AppBar>
-        {value === 0 && <TabContainer><Department  /></TabContainer>}
-        {value === 1 && <TabContainer><Category /></TabContainer>}
+        {value === 0 && <TabContainer><CategoryTraining  /></TabContainer>}
+        {value === 1 && <TabContainer><DepartmentTraining /></TabContainer>}
+        {value === 2 && <TabContainer><Assignment /></TabContainer>}
+        {value === 3 && <TabContainer><Profile /></TabContainer>}
       </div>
     );
   }
@@ -137,9 +99,7 @@ EmployeeApp.propTypes = {
 function mapStateToProps(state, ownProps){
   return {
     loginAuthorized:state.authLogin.loginAuthorized,
-    categoryUpdated:state.categoryData.updated,
-    trainingUpdated:state.trainingData.updated,
-    departmentUpdated:state.departmentData.updated,
+    username:state.authLogin.username,
     token:state.authLogin.token    
   };
 }

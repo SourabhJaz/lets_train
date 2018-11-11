@@ -11,7 +11,8 @@ const styles = theme => ({
     display:'auto'
   },
   card: {
-    marginTop:'10px'
+    marginTop:'10px',
+    paddingTop: '2%',
   },
   media: {
     height: 0,
@@ -24,7 +25,7 @@ class GridView extends React.Component{
     const { classes } = this.props;
     const tileData = this.props.tileData;
     return (
-      <div className={classes.root}>
+      <div className={classes.root} align="center">
       {tileData.map(tile => (
       <Card key={tile.id} className={classes.card}>
           <ReactPlayer url={tile.path} 

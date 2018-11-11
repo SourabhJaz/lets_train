@@ -3,6 +3,7 @@ export const AJAX_CALL = "AJAX_CALL";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
+export const LOGIN_DETAILS = "LOGIN_DETAILS";
 export const LOGOUT = "LOGOUT";
 export const STORE_CATEGORIES = "STORE_CATEGORIES";
 export const UPDATE_CATEGORIES = "UPDATE_CATEGORIES";

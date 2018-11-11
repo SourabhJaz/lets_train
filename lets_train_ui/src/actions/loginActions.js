@@ -1,6 +1,6 @@
 import {ajaxUtil} from '../utility/ajaxUtility';
 import {LOGIN_SUCCESS, LOGIN_FAIL, 
-  LOGIN_REQUEST, LOGOUT} from '../constants/frontEndConstants';
+  LOGIN_REQUEST, LOGOUT, LOGIN_DETAILS} from '../constants/frontEndConstants';
 import {SUCCESS, ERROR} from '../constants/frontEndConstants';
 import {setNotification} from './notificationActions';
 
@@ -36,12 +36,23 @@ export function logout(){
   };
 }
 
+/**
+  * This action will dispatch when the user authorized, dispatching from authLoginUser action
+  */
+function setLoginDetails(data){
+  return {
+   type: LOGIN_DETAILS,
+   data
+ };
+}
+
 export function authenticateUser(loginData){
     var promiseObject = ajaxUtil(loginData);
     return dispatch => {
      return (promiseObject).then(
      	data => {
         dispatch(loginSuccess(data));
+        dispatch(setLoginDetails(loginData.formData));
         dispatch(setNotification({
             type: SUCCESS,
             message: "Login successful"

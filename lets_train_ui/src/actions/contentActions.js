@@ -3,7 +3,7 @@ import {STORE_CONTENT,CONTENT_PROGRESS} from '../constants/frontEndConstants';
 import {SUCCESS, ERROR} from '../constants/frontEndConstants';
 import {setNotification} from './notificationActions';
 
-function storeContent(data){
+export function storeContent(data){
   return {
    type: STORE_CONTENT,
    data

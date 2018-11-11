@@ -1,8 +1,8 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import {getTrainingContent} from '../../actions/contentActions';
+import {getTrainingContent} from '../actions/contentActions';
 import { connect } from 'react-redux';
-import GridView from '../../components/GridView';
+import GridView from '../components/GridView';
 
 class TrainingContent extends React.Component{
 	_fetchTraining(id){
@@ -10,7 +10,7 @@ class TrainingContent extends React.Component{
       let params = {
           url: 'http://127.0.0.1:8000/api/training_content/'+training_id,
           method: 'get',
-          authorization: 'Token'+this.props.token
+          authorization: 'Token '+this.props.token
       }
       this.props.dispatch(getTrainingContent(params));       		
 

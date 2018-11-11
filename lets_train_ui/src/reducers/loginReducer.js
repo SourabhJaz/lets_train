@@ -1,5 +1,5 @@
 import {LOGIN_SUCCESS, LOGIN_REQUEST,
-  LOGIN_FAIL, LOGOUT} from '../constants/frontEndConstants';
+  LOGIN_FAIL, LOGOUT, LOGIN_DETAILS} from '../constants/frontEndConstants';
 
 export function authLogin(state={},action){
   switch (action.type) {
@@ -11,10 +11,18 @@ export function authLogin(state={},action){
         "token": token,
         "error": null
       });
+   case LOGIN_DETAILS:
+      let username = action.data.username;
+      sessionStorage.setItem('username', username);
+      return Object.assign({}, state, {
+        "username":username
+      });
    case LOGIN_REQUEST:
-      let sessionToken = sessionStorage.getItem('token');   
+      let sessionToken = sessionStorage.getItem('token');  
+      let sessionUsername = sessionStorage.getItem('username'); 
       return Object.assign({}, state, {
         "loginAuthorized":true,
+        "username":sessionUsername,
         "token": sessionToken,
         "error": null
       });

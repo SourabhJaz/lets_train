@@ -52,7 +52,7 @@ class AdminApp extends React.Component {
       let params = {
           url: 'http://127.0.0.1:8000/api/department/',
           method: 'get',
-          authorization: 'Token'+this.props.token
+          authorization: 'Token '+this.props.token
       }
       this.props.dispatch(getAllDepartments(params));       
   }
@@ -60,7 +60,7 @@ class AdminApp extends React.Component {
       let params = {
           url: 'http://127.0.0.1:8000/api/category/',
           method: 'get',
-          authorization: 'Token'+this.props.token
+          authorization: 'Token '+this.props.token
       }
       this.props.dispatch(getAllCategories(params));       
   }
@@ -68,7 +68,7 @@ class AdminApp extends React.Component {
       let params = {
           url: 'http://127.0.0.1:8000/api/training/',
           method: 'get',
-          authorization: 'Token'+this.props.token
+          authorization: 'Token '+this.props.token
       }
       this.props.dispatch(getAllTrainings(params));       
   }
@@ -76,7 +76,7 @@ class AdminApp extends React.Component {
     let params = {
         url: 'http://127.0.0.1:8000/api/user/',
         method: 'get',
-        authorization: 'Token'+this.props.token
+        authorization: 'Token '+this.props.token
     }
     this.props.dispatch(getUsers(params));   
   }
@@ -86,7 +86,7 @@ class AdminApp extends React.Component {
   }
   componentWillMount() {
      if(!this.props.loginAuthorized)  {
-      if(sessionStorage.getItem('token')){
+      if(sessionStorage.getItem('token') && sessionStorage.getItem('username')){
         this.props.dispatch(loginRequest());
       }
       else{
@@ -117,11 +117,12 @@ class AdminApp extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar color="default">
-             <Button variant="raised" className={classes.button} onClick={this.logoutRequest.bind(this)} >
+             <Button variant="raised" color="secondary" className={classes.button} onClick={this.logoutRequest.bind(this)} >
               Log out
              </Button>
           </Toolbar>
-          <Tabs value={value} onChange={this.handleChange} color="primary">
+          <Tabs value={value} onChange={this.handleChange} color="primary"
+            centered>
             <Tab label="Department" />
             <Tab label="Category" />
             <Tab label="Training" />

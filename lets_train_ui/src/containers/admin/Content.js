@@ -1,7 +1,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import SelectView from '../../components/SelectView';
-import TrainingContent from './TrainingContent';
+import TrainingContent from '../TrainingContent';
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';

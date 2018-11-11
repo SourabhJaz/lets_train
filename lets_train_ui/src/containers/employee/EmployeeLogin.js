@@ -7,13 +7,14 @@ import Paper from '@material-ui/core/Paper';
 import {authenticateUser} from '../../actions/loginActions';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
+import {loginRequest} from '../../actions/loginActions';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
     paddingTop: 16,
     paddingBottom: 16,
     justifyContent: 'center',
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 3
   }),  
   button: {
     margin: theme.spacing.unit,
@@ -29,10 +30,18 @@ class EmployeeLogin extends React.Component {
 		};
 	 }
   componentWillReceiveProps(nextProps) {
-     if(nextProps.loginAuthorized)  {
+     if(nextProps.loginAuthorized && nextProps.username)  {
       nextProps.history.push("/");
      }
   }
+  componentWillMount() {
+     if(!this.props.loginAuthorized)  {
+      if(sessionStorage.getItem('token') && sessionStorage.getItem('username')){
+        this.props.dispatch(loginRequest());
+        this.props.history.push("/");        
+      }
+   }
+  } 
 	_handleUsernameChange(event) {
         this.setState({
             username: event.target.value
@@ -75,8 +84,8 @@ class EmployeeLogin extends React.Component {
                onChange={this._handlePasswordChange.bind(this)}
                />
              <br/>
-             <Button variant="raised" className={classes.button} onClick={this._handleClick.bind(this)}>
-             	Submit
+             <Button variant="raised" color="primary" className={classes.button} onClick={this._handleClick.bind(this)}>
+             	Sign in
              </Button>
 	      </Paper>
         </div>
@@ -91,7 +100,8 @@ EmployeeLogin.propTypes = {
 
 function mapStateToProps(state, ownProps){
   return {
-    loginAuthorized:state.authLogin.loginAuthorized    
+    loginAuthorized:state.authLogin.loginAuthorized,
+    username:state.authLogin.username    
   };
 }
 

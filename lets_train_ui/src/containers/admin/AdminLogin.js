@@ -75,8 +75,8 @@ class AdminLogin extends React.Component {
                onChange={this._handlePasswordChange.bind(this)}
                />
              <br/>
-             <Button variant="raised" className={classes.button} onClick={this._handleClick.bind(this)}>
-             	Submit
+             <Button variant="raised" color="primary" className={classes.button} onClick={this._handleClick.bind(this)}>
+             	Sign in
              </Button>
 	      </Paper>
         </div>
