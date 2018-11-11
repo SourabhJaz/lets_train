@@ -2,19 +2,19 @@
 
 ## Postgres setup for MAC:
 
-`brew install postgres`
+- `brew install postgres`
 
-`psql postgres`
+- `psql postgres`
 
-`create role admin with login password '1234';`
+- `create role admin with login password '1234';`
 
-`\q`
+- `\q`
 
-`psql postgres -U admin`
+- `psql postgres -U admin`
 
-`create database training;`
+- `create database training;`
 
-`GRANT ALL PRIVILEGES ON DATABASE training TO admin;`
+- `GRANT ALL PRIVILEGES ON DATABASE training TO admin;`
 
 ## Backend setup:
 
@@ -34,16 +34,16 @@
 
 ## Creating admin user:
 
-Comment authentication in *lets_train_backend/api_app/views.py*
+- Comment authentication in *lets_train_backend/api_app/views.py*
 
 `	# authentication_classes = (TokenAuthentication,)`
 
 `	# permission_classes = (IsAdminOrReadOnly, )`
 
 
-**URL**: localhost:8000/api/user/
+- **URL**: localhost:8000/api/user/
 
-**POST**:
+- **POST**:
  [{
  
  "username":"admin",
@@ -64,6 +64,6 @@ Comment authentication in *lets_train_backend/api_app/views.py*
 
 }]
 
-Uncomment authentication in *lets_train_backend/api_app/views.py*
+- Uncomment authentication in *lets_train_backend/api_app/views.py*
 
-*Go to localhost:3000/admin/ on your browser.*
+- *Go to localhost:3000/admin/ on your browser.*
