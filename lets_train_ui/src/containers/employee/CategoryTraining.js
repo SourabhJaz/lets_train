@@ -1,6 +1,6 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import ChipView from '../../components/ChipView';
+import ButtonView from '../../components/ButtonView';
 import Training from './Training';
 import Button from '@material-ui/core/Button';
 import {getAllTrainings} from '../../actions/trainingActions';
@@ -60,7 +60,7 @@ class CategoryTraining extends React.Component{
 		const trainingList = this.props.trainingList;
 		return (
 			<div >
-				{!category && <ChipView chipData={data} handleClick={this._getCategoryTrainings.bind(this)} />}
+				{!category && <ButtonView chipData={data} handleClick={this._getCategoryTrainings.bind(this)} />}
 				<p>
 					{category && <Button variant="contained" color="default" onClick={this._resetCategory.bind(this)}>
 						{'Back to Categories'}

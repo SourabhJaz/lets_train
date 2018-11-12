@@ -4,6 +4,9 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import {authenticateUser} from '../../actions/loginActions';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
@@ -70,6 +73,13 @@ class EmployeeLogin extends React.Component {
     const { classes } = this.props;
 	    return (
         <div>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="headline" color="inherit">
+              Let's Train
+            </Typography>
+          </Toolbar>
+        </AppBar>
         <Paper className={classes.root} elevation={4}>           
           <TextField
              label="Username"

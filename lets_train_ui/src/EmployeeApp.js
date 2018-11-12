@@ -31,8 +31,12 @@ TabContainer.propTypes = {
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-    justifyContent: 'center',
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  tabs: {
+        marginBottom: '1%',
   },
 });
 
@@ -70,19 +74,24 @@ class EmployeeApp extends React.Component {
     return (
       <div className={classes.root}>
         <AppBar position="static">
-          <Toolbar color="default">
-             <Button variant="raised" color="secondary" className={classes.button} onClick={this.logoutRequest.bind(this)} >
-              Log out
-             </Button>
+          <Toolbar>
+            <Typography variant="headline" color="inherit" className={classes.grow}>
+              Let's Train
+            </Typography>
+            <Button variant="raised" color="secondary" onClick={this.logoutRequest.bind(this)} >
+            Log out
+            </Button>
           </Toolbar>
-          <Tabs value={value} onChange={this.handleChange} 
-            centered >
-            <Tab label="Categories" />
-            <Tab label="Department Trainings" />
-            <Tab label="Assignments" />
-            <Tab label="Profile" />
-          </Tabs>
         </AppBar>
+        <Tabs value={value} fullWidth onChange={this.handleChange}
+          className={classes.tabs} 
+          indicatorColor="primary"
+          textColor="primary">
+          <Tab label="Categories" />
+          <Tab label="Department Trainings" />
+          <Tab label="Assignments" />
+          <Tab label="Profile" />
+        </Tabs>
         {value === 0 && <TabContainer><CategoryTraining  /></TabContainer>}
         {value === 1 && <TabContainer><DepartmentTraining /></TabContainer>}
         {value === 2 && <TabContainer><Assignment /></TabContainer>}
