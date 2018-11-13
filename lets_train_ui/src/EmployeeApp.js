@@ -35,9 +35,6 @@ const styles = theme => ({
   grow: {
     flexGrow: 1,
   },
-  tabs: {
-        marginBottom: '1%',
-  },
 });
 
 class EmployeeApp extends React.Component {
@@ -84,7 +81,6 @@ class EmployeeApp extends React.Component {
           </Toolbar>
         </AppBar>
         <Tabs value={value} fullWidth onChange={this.handleChange}
-          className={classes.tabs} 
           indicatorColor="primary"
           textColor="primary">
           <Tab label="Categories" />

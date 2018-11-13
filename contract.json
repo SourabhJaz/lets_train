@@ -1,112 +1,115 @@
-POST
-User:
-[{
-  "username":"00000",
-  "first_name":"raghav",
-  "email":"raghav.g@domain.country",
-  "password":"1234",
-  "userprofile":{
-  	  "employee_code": "00000",
-      "dapartment": 1,
-      "business_unit": "HQ",
-      "unit": "Technical",
-      "function": "Engineer",
-      "location": "NCR",
-      "manager_code": 00001,
-      "manager_name": "nitin"
+// POST
+// User:
+{"post": 
+  [{
+    "username":"00000",
+    "first_name":"raghav",
+    "email":"raghav.g@domain.country",
+    "password":"1234",
+    "userprofile":{
+    	  "employee_code": "00000",
+        "dapartment": 1,
+        "business_unit": "HQ",
+        "unit": "Technical",
+        "function": "Engineer",
+        "location": "NCR",
+        "manager_code": 00001,
+        "manager_name": "nitin"
+    },
+    "is_staff": false
+  }],
+  
+  // Category:
+  {
+    "category_name": "motivation"
   },
-  "is_staff": false
-}]
 
-Category:
-{
-  "category_name": "motivation"
-}
-
-Department:
-{
-  "department_name": "server"
-}
-
-Training:
-{
-  "name": "Testing",
-  "category": 1,
-  "details": {}
-}
-
-Content:
-{
-  "title": "Black-box",
-  "path": "http://127.0.0.1:8000/media/Screen_Shot_2018-05-25_at_10.25.06_PM.png",
-  "attributes": {},
-  "training": [
-      3
-  ]
-}
-
-Assignment:
-{
-  "user": 1,
-  "training": 2
-}
-
-UserHistory:
-{
-  "user": 1,
-  "content": 2
-}
-
-GET
-USER:
-{
-    "count": 4,
-    "next": null,
-    "previous": null,
-    "results": [
-        {
-            "id": 52,
-            "username": "6165",
-            "first_name": "",
-            "last_name": "",
-            "email": "",
-            "password": "",
-            "is_staff": true,
-            "userprofile": {
-                "employee_code": 6165,
-                "business_unit": null,
-                "unit": null,
-                "function": null,
-                "location": null,
-                "manager_code": 0,
-                "manager_email": null,
-                "department": null
-            }
-        }
-    ]
-}
-CONTENT:
-{
-  "name": "Testing",
-  "category": {
-    "id": 3,
-    "category_name": "server"
+  // Department:
+  {
+    "department_name": "server"
   },
-  "department": {
-    "id": 1,
-    "department_name": "technical"
+
+  // Training:
+  {
+    "name": "Testing",
+    "category": 1,
+    "details": {}
   },
-  "details": {},
-  "training_content": [{
-    "id": 3,
+
+  // Content:
+  {
     "title": "Black-box",
     "path": "http://127.0.0.1:8000/media/Screen_Shot_2018-05-25_at_10.25.06_PM.png",
     "attributes": {},
-    "training_id": [3]
-  }]
-}
-USER_DEPARTMENT_TRAINING:
-http://localhost:8000/api/user/65465/department_training/
+    "training": [
+        3
+    ]
+  },
 
-CATEGORY_TRAINING:
-http://localhost:8000/api/category/2/category_training/
+  // Assignment:
+  {
+    "user": 1,
+    "training": 2
+  },
+
+  // UserHistory:
+  {
+    "user": 1,
+    "content": 2
+  }
+},
+// GET
+// USER:
+{"get":
+  {
+      "count": 4,
+      "next": null,
+      "previous": null,
+      "results": [
+          {
+              "id": 52,
+              "username": "6165",
+              "first_name": "",
+              "last_name": "",
+              "email": "",
+              "password": "",
+              "is_staff": true,
+              "userprofile": {
+                  "employee_code": 6165,
+                  "business_unit": null,
+                  "unit": null,
+                  "function": null,
+                  "location": null,
+                  "manager_code": 0,
+                  "manager_email": null,
+                  "department": null
+              }
+          }
+      ]
+  },
+  // CONTENT:
+  {
+    "name": "Testing",
+    "category": {
+      "id": 3,
+      "category_name": "server"
+    },
+    "department": {
+      "id": 1,
+      "department_name": "technical"
+    },
+    "details": {},
+    "training_content": [{
+      "id": 3,
+      "title": "Black-box",
+      "path": "http://127.0.0.1:8000/media/Screen_Shot_2018-05-25_at_10.25.06_PM.png",
+      "attributes": {},
+      "training_id": [3]
+    }]
+  }
+}
+// USER_DEPARTMENT_TRAINING:
+// http://localhost:8000/api/user/65465/department_training/
+
+// CATEGORY_TRAINING:
+// http://localhost:8000/api/category/2/category_training/
