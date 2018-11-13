@@ -15,6 +15,15 @@ import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import {getAllCategories} from './actions/categoryActions';
 import {logout} from './actions/loginActions';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import blue from '@material-ui/core/colors/blue';
+import FitnessCenter from '@material-ui/icons/FitnessCenter'
+
+const theme = createMuiTheme({
+  palette: {
+    primary: blue 
+  }
+});
 
 function TabContainer(props) {
   return (
@@ -69,30 +78,33 @@ class EmployeeApp extends React.Component {
     const { value } = this.state;
 
     return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="headline" color="inherit" className={classes.grow}>
-              Let's Train
-            </Typography>
-            <Button variant="raised" color="secondary" onClick={this.logoutRequest.bind(this)} >
-            Log out
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <Tabs value={value} fullWidth onChange={this.handleChange}
-          indicatorColor="primary"
-          textColor="primary">
-          <Tab label="Categories" />
-          <Tab label="Department Trainings" />
-          <Tab label="Assignments" />
-          <Tab label="Profile" />
-        </Tabs>
-        {value === 0 && <TabContainer><CategoryTraining  /></TabContainer>}
-        {value === 1 && <TabContainer><DepartmentTraining /></TabContainer>}
-        {value === 2 && <TabContainer><Assignment /></TabContainer>}
-        {value === 3 && <TabContainer><Profile /></TabContainer>}
-      </div>
+      <MuiThemeProvider theme={theme}>
+        <div className={classes.root}>
+          <AppBar position="static">
+            <Toolbar>
+              <Typography variant="headline" color="inherit" className={classes.grow}>
+                Let's Train
+                <FitnessCenter />
+              </Typography>
+              <Button variant="raised" color="secondary" onClick={this.logoutRequest.bind(this)} >
+              Log out
+              </Button>
+            </Toolbar>
+          </AppBar>
+          <Tabs value={value} fullWidth onChange={this.handleChange}
+            indicatorColor="primary"
+            textColor="primary">
+            <Tab label="Categories" />
+            <Tab label="Department Trainings" />
+            <Tab label="Assignments" />
+            <Tab label="Profile" />
+          </Tabs>
+          {value === 0 && <TabContainer><CategoryTraining  /></TabContainer>}
+          {value === 1 && <TabContainer><DepartmentTraining /></TabContainer>}
+          {value === 2 && <TabContainer><Assignment /></TabContainer>}
+          {value === 3 && <TabContainer><Profile /></TabContainer>}
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

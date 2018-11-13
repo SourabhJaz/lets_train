@@ -4,6 +4,9 @@ import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
 import {authenticateUser} from '../../actions/loginActions';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
@@ -61,24 +64,31 @@ class AdminLogin extends React.Component {
     const { classes } = this.props;
 	    return (
         <div>
-        <Paper className={classes.root} elevation={4}>           
-          <TextField
-             label="Username"
-             value={this.state.username}
-             onChange={this._handleUsernameChange.bind(this)}
-             />
-           <br/>
-             <TextField
-   	           label="Password"
-               type="password"
-	             value={this.state.password}
-               onChange={this._handlePasswordChange.bind(this)}
+          <AppBar position="static">
+            <Toolbar>
+              <Typography variant="headline" color="inherit">
+                Let's Train Admin 
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <Paper className={classes.root} elevation={4}>           
+            <TextField
+               label="Username"
+               value={this.state.username}
+               onChange={this._handleUsernameChange.bind(this)}
                />
              <br/>
-             <Button variant="raised" color="primary" className={classes.button} onClick={this._handleClick.bind(this)}>
-             	Sign in
-             </Button>
-	      </Paper>
+               <TextField
+                 label="Password"
+                 type="password"
+                 value={this.state.password}
+                 onChange={this._handlePasswordChange.bind(this)}
+                 />
+               <br/>
+               <Button variant="raised" color="primary" className={classes.button} onClick={this._handleClick.bind(this)}>
+                Sign in
+               </Button>
+          </Paper>
         </div>
 	    );
 	  }

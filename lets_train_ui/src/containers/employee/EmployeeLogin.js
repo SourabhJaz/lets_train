@@ -11,16 +11,30 @@ import {authenticateUser} from '../../actions/loginActions';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import {loginRequest} from '../../actions/loginActions';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import blue from '@material-ui/core/colors/blue';
+import FitnessCenter from '@material-ui/icons/FitnessCenter'
+
+const theme = createMuiTheme({
+  palette: {
+    primary: blue 
+  }
+});
 
 const styles = theme => ({
   root: theme.mixins.gutters({
-    paddingTop: 16,
-    paddingBottom: 16,
-    justifyContent: 'center',
-    marginTop: theme.spacing.unit * 3
-  }),  
+    margin: 'auto',
+    marginTop: theme.spacing.unit * 20,
+    width: theme.spacing.unit * 40,
+    rounded: true,
+  }),
+  form:{
+    paddingTop: theme.spacing.unit * 4,
+    paddingBottom: theme.spacing.unit * 4,
+    textAlign: 'center',
+  },  
   button: {
-    margin: theme.spacing.unit,
+    marginTop: theme.spacing.unit * 5,
   },
 });
 
@@ -72,33 +86,39 @@ class EmployeeLogin extends React.Component {
 	render() {
     const { classes } = this.props;
 	    return (
-        <div>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="headline" color="inherit">
-              Let's Train
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Paper className={classes.root} elevation={4}>           
-          <TextField
-             label="Username"
-             value={this.state.username}
-             onChange={this._handleUsernameChange.bind(this)}
-             />
-           <br/>
-             <TextField
-   	           label="Password"
-               type="password"
-	             value={this.state.password}
-               onChange={this._handlePasswordChange.bind(this)}
+        <MuiThemeProvider theme={theme}>
+          <Paper className={classes.root} elevation={5}>           
+          <AppBar position="static">
+            <Toolbar>
+              <Typography variant="headline" color="inherit">
+                Let's Train
+                <FitnessCenter />
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <div className={classes.form}>
+            <TextField
+               label="Username"
+               fullWidth
+               value={this.state.username}
+               onChange={this._handleUsernameChange.bind(this)}
                />
              <br/>
-             <Button variant="raised" color="primary" className={classes.button} onClick={this._handleClick.bind(this)}>
-             	Sign in
-             </Button>
-	      </Paper>
-        </div>
+               <TextField
+     	           label="Password"
+                 type="password"
+                 fullWidth
+  	             value={this.state.password}
+                 onChange={this._handlePasswordChange.bind(this)}
+                 />
+               <br/>
+               <Button variant="raised" color="primary" size="large" 
+               className={classes.button} onClick={this._handleClick.bind(this)}>
+               	Sign in
+               </Button>
+          </div>
+  	      </Paper>
+        </MuiThemeProvider>
 	    );
 	  }
 }
