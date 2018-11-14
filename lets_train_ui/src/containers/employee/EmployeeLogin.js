@@ -28,6 +28,9 @@ const styles = theme => ({
     width: theme.spacing.unit * 40,
     rounded: true,
   }),
+  toolBar:{
+    margin: 'auto',
+  },
   form:{
     paddingTop: theme.spacing.unit * 4,
     paddingBottom: theme.spacing.unit * 4,
@@ -89,7 +92,7 @@ class EmployeeLogin extends React.Component {
         <MuiThemeProvider theme={theme}>
           <Paper className={classes.root} elevation={5}>           
           <AppBar position="static">
-            <Toolbar>
+            <Toolbar className={classes.toolBar}>
               <Typography variant="headline" color="inherit">
                 Let's Train
                 <FitnessCenter />
