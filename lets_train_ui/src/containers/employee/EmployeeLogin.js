@@ -115,7 +115,7 @@ class EmployeeLogin extends React.Component {
                  onChange={this._handlePasswordChange.bind(this)}
                  />
                <br/>
-               <Button variant="raised" color="primary" size="large" 
+               <Button variant="outlined" color="primary" size="large" 
                className={classes.button} onClick={this._handleClick.bind(this)}>
                	Sign in
                </Button>
