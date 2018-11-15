@@ -15,6 +15,20 @@ import {postTrainingContent, setContentProgress} from '../../actions/contentActi
 import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import compose from 'recompose/compose';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 200,
+  }
+});
 
 class Content extends React.Component{
 	state = {
@@ -62,7 +76,11 @@ class Content extends React.Component{
 	    });
 	};
     handleClose = () => {
- 	   this.setState({ open: false });
+ 	   this.setState({ open: false,
+ 	   	content_title:'',
+	    content_description:'',
+	    file_path:'',
+	    training:[] });
     };
     handleSubmit = () => {
     	let formData = new FormData();
@@ -81,10 +99,11 @@ class Content extends React.Component{
 	        loadAction: this.props.contentProgress
 	    }
 	    this.props.postTrainingContent(params);    	
-    	this.setState({ open: false });
+    	this.handleClose();
     };
 
 	render() {
+		const { classes } = this.props;
 		const data = this._makeTrainingList();
 		const training_id = this.state.training_id;
 		const trainingList = this.props.trainingList;
@@ -102,40 +121,47 @@ class Content extends React.Component{
 					    <DialogContentText>
 					    Mention the relevant details
 					    </DialogContentText>
-					    <TextField
-					      autoFocus
-					      margin="dense"
-					      id="name"
-					      label="Content title"
-					      onChange={this._handleTitleChange.bind(this)}
-					      fullWidth
-					    />
-						<InputLabel htmlFor="select-multiple-trainings">Select trainings</InputLabel>
-					    <Select
-				            multiple
-				            value={this.state.training}
-				            onChange={this._handleSelect.bind(this)}
-				            input={<Input id="select-multiple-trainings" />}
-				          >
-						    {trainingList.map(data=>
-						    	(<MenuItem
-					                key={data.id}
-					                value={data.id}>
-					              {data.name}
-					            </MenuItem>)
-						    )}
-					    </Select>
-					    <br/>
-					    <Input type="file" name="Upload file" onChange={this._handleFile.bind(this)} />
-					    <TextField
-					      autoFocus
-					      margin="dense"
-					      id="name"
-					      label="Content description"
-					      onChange={this._handleDescriptionChange.bind(this)}
-					      multiline={true}
-					      fullWidth
-					    />					    
+					    <form className={classes.root} autoComplete="off">
+						    <FormControl className={classes.formControl} fullWidth>
+							    <TextField
+							      autoFocus
+							      margin="dense"
+							      id="name"
+							      label="Content title"
+							      onChange={this._handleTitleChange.bind(this)}
+							      fullWidth
+							    />
+						    </FormControl>	    
+						    <FormControl className={classes.formControl} fullWidth>
+								<InputLabel htmlFor="select-multiple-trainings">Select trainings</InputLabel>
+							    <Select
+						            multiple
+						            value={this.state.training}
+						            onChange={this._handleSelect.bind(this)}
+						            input={<Input id="select-multiple-trainings" />}
+						          >
+								    {trainingList.map(data=>
+								    	(<MenuItem
+							                key={data.id}
+							                value={data.id}>
+							              {data.name}
+							            </MenuItem>)
+								    )}
+							    </Select>
+						    </FormControl>	    
+						    <FormControl className={classes.formControl} fullWidth>
+							    <Input type="file" name="Upload file" onChange={this._handleFile.bind(this)} />
+							    <TextField
+							      autoFocus
+							      margin="dense"
+							      id="name"
+							      label="Content description"
+							      onChange={this._handleDescriptionChange.bind(this)}
+							      multiline={true}
+							      fullWidth
+							    />				
+						    </FormControl>	   
+					  </form> 
 					  </DialogContent>
 					  <DialogActions>
 					    <Button onClick={this.handleClose} color="primary">
@@ -146,7 +172,7 @@ class Content extends React.Component{
 					    </Button>
 					  </DialogActions>
 					</Dialog>
-					<SelectView menuData={data} title={'Select training'} handleSelect={
+					<SelectView menuData={data} title={'Select training to view content'} handleSelect={
                                        this._handleClick.bind(this)} />
 					{training_id && <TrainingContent id={training_id} />}
 			</div>
@@ -173,4 +199,6 @@ function mapDispatchToProps(dispatch){
 	}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
+export default compose(
+	withStyles(styles),
+	connect(mapStateToProps, mapDispatchToProps))(Content);

@@ -15,9 +15,9 @@ class Training extends React.Component{
         return {
           key: data.id,
           type: 'Training',
-          heading: data.name,
+          heading: data.name.toUpperCase(),
           subheading: '',
-          text: '',
+          text: data.details.description,
           buttonText: 'Explore'
         } 
       })

@@ -10,7 +10,6 @@ import Typography from '@material-ui/core/Typography';
 import {authenticateUser} from '../../actions/loginActions';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
-import {loginRequest} from '../../actions/loginActions';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 import FitnessCenter from '@material-ui/icons/FitnessCenter'
@@ -54,14 +53,6 @@ class EmployeeLogin extends React.Component {
       nextProps.history.push("/");
      }
   }
-  componentWillMount() {
-     if(!this.props.loginAuthorized)  {
-      if(sessionStorage.getItem('token') && sessionStorage.getItem('username')){
-        this.props.dispatch(loginRequest());
-        this.props.history.push("/");        
-      }
-   }
-  } 
 	_handleUsernameChange(event) {
         this.setState({
             username: event.target.value

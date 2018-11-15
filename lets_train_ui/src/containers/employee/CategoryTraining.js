@@ -15,7 +15,9 @@ class CategoryTraining extends React.Component{
     _makeCategoryList(){
     	let categoryList = this.props.categoryList;
     	return categoryList.map(data => {
-    		return {key: data.id, label: data.category_name} 
+    		return {key: data.id, 
+          label: data.category_name.toUpperCase()
+        } 
     	})
     }
     _getCategoryTrainings(id){

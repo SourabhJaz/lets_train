@@ -85,14 +85,25 @@ class AdminApp extends React.Component {
       this.props.history.push("/admin/login");              
   }
   componentWillMount() {
-     if(!this.props.loginAuthorized)  {
-      if(sessionStorage.getItem('token') && sessionStorage.getItem('username')){
-        this.props.dispatch(loginRequest());
-      }
-      else{
+     if(this.props.loginAuthorized){
+        this.getAllDepartments();
+        this.getAllCategories();
+        this.getAllTrainings();      
+     }
+     else if(sessionStorage.getItem('token') 
+      && sessionStorage.getItem('username')){
+        Promise.resolve()
+        .then(() => {
+          return this.props.dispatch(loginRequest());          
+        })
+        .then(() => {
+            this.getAllDepartments();
+            this.getAllCategories();
+            this.getAllTrainings();
+        });
+      }else{
         this.props.history.push("/admin/login");        
       }
-     }
   }
   componentWillReceiveProps(nextProps){
     if(!nextProps.loginAuthorized)
@@ -103,11 +114,6 @@ class AdminApp extends React.Component {
   		this.getAllTrainings();
   	if(nextProps.departmentUpdated)
   		this.getAllDepartments();
-  }
-  componentDidMount(){
-    this.getAllDepartments();
-    this.getAllCategories();
-    this.getAllTrainings();
   }
   render() {
     const { classes } = this.props;

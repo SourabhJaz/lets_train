@@ -9,6 +9,20 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import {postDepartment} from '../../actions/departmentActions';
 import { connect } from 'react-redux';
+import FormControl from '@material-ui/core/FormControl';
+import compose from 'recompose/compose';
+import { withStyles } from '@material-ui/core/styles';
+
+const styles = theme => ({
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  formControl: {
+    margin: theme.spacing.unit,
+    minWidth: 200,
+  }
+});
 
 class Department extends React.Component{
 	state = {
@@ -18,7 +32,9 @@ class Department extends React.Component{
     _makeDepartmentList(){
     	let departmentList = this.props.departmentList;
     	return departmentList.map(data => {
-    		return {key: data.id, label: data.department_name} 
+    		return {key: data.id, 
+    			label: data.department_name.toUpperCase()
+    		} 
     	})
     }
 	_handleClick(){
@@ -36,12 +52,13 @@ class Department extends React.Component{
 	    });
 	};
     handleClose = () => {
- 	   this.setState({ open: false });
+ 	   this.setState({ open: false,
+ 	   department:''});
     };
     handleSubmit = () => {
     	this.setState({ open: false });
     	let formData={         
-	      'department_name': this.state.department
+	      department_name: this.state.department
 	    };
 	    let params = {
 	        url: 'http://127.0.0.1:8000/api/department/',
@@ -50,8 +67,10 @@ class Department extends React.Component{
 	        authorization: 'Token '+this.props.token
 	    }
 	    this.props.dispatch(postDepartment(params));
+    	this.handleClose();
 	};
 	render() {
+		const { classes } = this.props;
 		const data = this._makeDepartmentList();		
 		return (
 			<div >
@@ -70,15 +89,19 @@ class Department extends React.Component{
 					    <DialogContentText>
 					    Departments are the divisions made by the organisation
 					    </DialogContentText>
-					    <TextField
-					      autoFocus
-					      margin="dense"
-					      id="name"
-					      value={this.state.department}
-					      label="Department name"
-					      onChange={this._handleDepartmentChange.bind(this)}
-					      fullWidth
-					    />
+					    <form className={classes.root} autoComplete="off">
+						    <FormControl className={classes.formControl} fullWidth>
+							    <TextField
+							      autoFocus
+							      margin="dense"
+							      id="name"
+							      value={this.state.department}
+							      label="Department name"
+							      onChange={this._handleDepartmentChange.bind(this)}
+							      fullWidth
+							    />
+						  	</FormControl>
+					  	</form>
 					  </DialogContent>
 					  <DialogActions>
 					    <Button onClick={this.handleClose} color="primary">
@@ -103,4 +126,6 @@ function mapStateToProps(state, ownProps){
 }
 
 
-export default connect(mapStateToProps)(Department);
+export default compose(
+	withStyles(styles),
+	connect(mapStateToProps))(Department);

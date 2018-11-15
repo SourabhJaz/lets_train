@@ -14,7 +14,7 @@ const styles = theme => ({
   chip: {
     display: 'flex',
     margin: theme.spacing.unit,
-    // fontSize: '60%',
+    fontSize: '100%',
   },
 });
 

@@ -14,7 +14,7 @@ const styles = theme => ({
   },
   formControl: {
     margin: theme.spacing.unit,
-    minWidth: 120,
+    minWidth: 300,
   },
   selectEmpty: {
     marginTop: theme.spacing.unit * 2,
@@ -36,7 +36,7 @@ class SelectView extends React.Component {
     const { classes } = this.props;
     return (
       <form className={classes.root} autoComplete="off">
-        <FormControl className={classes.formControl}>
+        <FormControl className={classes.formControl} fullwidth>
           <InputLabel htmlFor="simple">{this.props.title}</InputLabel>
           <Select
             onChange={this.handleChange}

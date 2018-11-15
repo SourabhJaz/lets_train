@@ -8,11 +8,11 @@ const styles = theme => ({
     display: 'flex',
     justifyContent: 'center',
     flexWrap: 'wrap',
-    fontSize: '200%',
   },
   chip: {
     margin: theme.spacing.unit,
-    // fontSize: '60%',
+    fontSize: '125%',
+    padding: theme.spacing.unit,
   },
 });
 
@@ -22,7 +22,7 @@ class ChipView extends React.Component{
     return (
       <div className={classes.root}>
        {this.props.chipData.map(data => {
-        return(<Chip key={data.key} label={data.label} className={classes.chip} 
+        return(<Chip variant='outlined' color='primary' key={data.key} label={data.label} className={classes.chip} 
           onClick={this.props.handleClick.bind(this, data.key)}/>)
         })}
       </div>

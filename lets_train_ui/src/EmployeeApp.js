@@ -14,10 +14,14 @@ import Profile from './containers/employee/Profile';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
 import {getAllCategories} from './actions/categoryActions';
-import {logout} from './actions/loginActions';
+import {loginRequest, logout} from './actions/loginActions';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
-import FitnessCenter from '@material-ui/icons/FitnessCenter'
+import FitnessCenter from '@material-ui/icons/FitnessCenter';
+import Domain from '@material-ui/icons/Domain';
+import School from '@material-ui/icons/School';
+import AssignmentInd from '@material-ui/icons/AssignmentInd';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 const theme = createMuiTheme({
   palette: {
@@ -67,11 +71,21 @@ class EmployeeApp extends React.Component {
       this.props.history.push("/login");              
   }
   componentWillMount() {
-     if(!this.props.loginAuthorized)
-        this.props.history.push("/login");        
-  }
-  componentDidMount(){
-    this.getAllCategories();
+     if(this.props.loginAuthorized){
+        this.getAllCategories();
+     }
+     else if(sessionStorage.getItem('token') 
+      && sessionStorage.getItem('username')){
+        Promise.resolve()
+          .then(() => {
+            return this.props.dispatch(loginRequest());
+          })
+          .then(() => {
+            this.getAllCategories();
+          });
+       }else{
+          this.props.history.push("/login");     
+       }   
   }
   render() {
     const { classes } = this.props;
@@ -94,10 +108,10 @@ class EmployeeApp extends React.Component {
           <Tabs value={value} fullWidth onChange={this.handleChange}
             indicatorColor="primary"
             textColor="primary">
-            <Tab label="Categories" />
-            <Tab label="Department Trainings" />
-            <Tab label="Assignments" />
-            <Tab label="Profile" />
+            <Tab label="Categories" icon={<Domain />} />
+            <Tab label="Department Trainings" icon={<School />} />
+            <Tab label="Assignments" icon={<AssignmentInd />} />
+            <Tab label="Profile" icon={<AccountCircle />} />
           </Tabs>
           {value === 0 && <TabContainer><CategoryTraining  /></TabContainer>}
           {value === 1 && <TabContainer><DepartmentTraining /></TabContainer>}
