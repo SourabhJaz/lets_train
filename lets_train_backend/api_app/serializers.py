@@ -63,6 +63,8 @@ class TrainingSerializer(serializers.ModelSerializer):
 		fields = '__all__'
 
 	def validate(self, data):
+		name = data['name']
+		data['name'] = name.lower()
 		return data 
 
 # To serialise many-to-many fields with multipart data (videos)
