@@ -22,6 +22,7 @@ import Domain from '@material-ui/icons/Domain';
 import School from '@material-ui/icons/School';
 import AssignmentInd from '@material-ui/icons/AssignmentInd';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import {API_URL} from './constants/configConstants';
 
 const theme = createMuiTheme({
   palette: {
@@ -60,7 +61,7 @@ class EmployeeApp extends React.Component {
   };
   getAllCategories(){
       let params = {
-          url: 'http://127.0.0.1:8000/api/category/',
+          url: `http://${API_URL}/api/category/`,
           method: 'get',
           authorization: 'Token '+this.props.token
       }
@@ -110,8 +111,8 @@ class EmployeeApp extends React.Component {
             textColor="primary">
             <Tab label="Categories" icon={<Domain />} />
             <Tab label="Department Trainings" icon={<School />} />
-            <Tab label="Assignments" icon={<AssignmentInd />} />
-            <Tab label="Profile" icon={<AccountCircle />} />
+            <Tab label="Assignments" disabled icon={<AssignmentInd />} />
+            <Tab label="Profile" disabled icon={<AccountCircle />} />
           </Tabs>
           {value === 0 && <TabContainer><CategoryTraining  /></TabContainer>}
           {value === 1 && <TabContainer><DepartmentTraining /></TabContainer>}

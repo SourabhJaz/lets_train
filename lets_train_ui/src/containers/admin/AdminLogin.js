@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import {authenticateUser} from '../../actions/loginActions';
 import { connect } from 'react-redux';
 import compose from 'recompose/compose';
+import {API_URL} from '../../constants/configConstants';
 
 const styles = theme => ({
   root: theme.mixins.gutters({
@@ -53,7 +54,7 @@ class AdminLogin extends React.Component {
     };
 
     let loginData={
-      'url':'http://127.0.0.1:8000/api-token-auth/',
+      'url':`http://${API_URL}/api-token-auth/`,
       'formData':formData,
       'method':'post'
     }

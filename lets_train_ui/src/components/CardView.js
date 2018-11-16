@@ -17,9 +17,6 @@ const styles = {
     margin: '0 2px',
     transform: 'scale(0.8)',
   },
-  title: {
-    fontSize: 14,
-  },
   pos: {
     marginBottom: 12,
   },
@@ -34,7 +31,7 @@ class CardView extends React.Component{
           return (
             <Card className={classes.card} key={data.key}>
             <CardContent>
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
+              <Typography color="textSecondary" gutterBottom>
                 {data.type}
               </Typography>
               <Typography variant="headline" component="h2">

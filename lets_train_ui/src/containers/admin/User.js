@@ -4,6 +4,7 @@ import TableView from '../../components/TableView';
 import {getUsers, addUsers} from '../../actions/userActions';
 import { connect } from 'react-redux';
 import CSVReader from "react-csv-reader";
+import {API_URL} from '../../constants/configConstants';
 
 class User extends React.Component{
 	handleData = data => {
@@ -59,7 +60,7 @@ class User extends React.Component{
 			}
 		});
 	    let params = {
-	        url: 'http://127.0.0.1:8000/api/user/',
+	        url: `http://${API_URL}/api/user/`,
 	        method: 'post',
 	        formData:postList,
 	        authorization: 'Token '+this.props.token
@@ -106,7 +107,7 @@ class User extends React.Component{
 	}
 	getAllUsers(){
 		let params = {
-	        url: 'http://127.0.0.1:8000/api/user/',
+	        url: `http://${API_URL}/api/user/`,
 	        method: 'get',
 	        authorization: 'Token '+this.props.token
 	    }

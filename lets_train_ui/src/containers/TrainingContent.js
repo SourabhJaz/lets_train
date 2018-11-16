@@ -3,12 +3,13 @@ import React from 'react';
 import {getTrainingContent} from '../actions/contentActions';
 import { connect } from 'react-redux';
 import GridView from '../components/GridView';
+import {API_URL} from '../constants/configConstants';
 
 class TrainingContent extends React.Component{
 	_fetchTraining(id){
 	  let training_id = id;
       let params = {
-          url: 'http://127.0.0.1:8000/api/training_content/'+training_id,
+          url: `http://${API_URL}/api/training_content/${training_id}`,
           method: 'get',
           authorization: 'Token '+this.props.token
       }

@@ -18,6 +18,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
+import {API_URL} from '../../constants/configConstants';
 
 const styles = theme => ({
   root: {
@@ -91,7 +92,7 @@ class Content extends React.Component{
         }))  
         formData.append('training',this.state.training)  
 	    let params = {
-	        url: 'http://127.0.0.1:8000/api/content/',
+	        url: `http://${API_URL}/api/content/`,
 	        method: 'post',
 	        formData:formData,
 	        contentType: false,

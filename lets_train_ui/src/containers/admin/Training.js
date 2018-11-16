@@ -16,6 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
+import {API_URL} from '../../constants/configConstants';
 
 const styles = theme => ({
   root: {
@@ -89,7 +90,7 @@ class Training extends React.Component{
 	      }
 	    };
 	    let params = {
-	        url: 'http://127.0.0.1:8000/api/training/',
+	        url: `http://${API_URL}/api/training/`,
 	        method: 'post',
 	        formData:formData,
 	        authorization: 'Token '+this.props.token

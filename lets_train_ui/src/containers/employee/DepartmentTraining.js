@@ -2,12 +2,13 @@ import React from 'react';
 import {getAllTrainings} from '../../actions/trainingActions';
 import Training from './Training';
 import { connect } from 'react-redux';
+import {API_URL} from '../../constants/configConstants';
 
 class DepartmentTraining extends React.Component{
     getUserTrainings(){
       let username = this.props.username;
       let params = {
-          url: 'http://127.0.0.1:8000/api/user/'+username+'/department_training/',
+          url: `http://${API_URL}/api/user/${username}/department_training/`,
           method: 'get',
           authorization: 'Token '+this.props.token
       }

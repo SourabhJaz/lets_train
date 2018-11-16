@@ -13,6 +13,7 @@ import compose from 'recompose/compose';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 import FitnessCenter from '@material-ui/icons/FitnessCenter'
+import {API_URL} from '../../constants/configConstants';
 
 const theme = createMuiTheme({
   palette: {
@@ -23,7 +24,7 @@ const theme = createMuiTheme({
 const styles = theme => ({
   root: theme.mixins.gutters({
     margin: 'auto',
-    marginTop: theme.spacing.unit * 20,
+    marginTop: theme.spacing.unit * 18,
     width: theme.spacing.unit * 40,
     rounded: true,
   }),
@@ -70,9 +71,9 @@ class EmployeeLogin extends React.Component {
     };
 
     let loginData={
-      'url':'http://127.0.0.1:8000/api-token-auth/',
-      'formData':formData,
-      'method':'post'
+      url:`http://${API_URL}/api-token-auth/`,
+      formData:formData,
+      method:'post'
     }
     this.props.dispatch(authenticateUser(loginData));
 

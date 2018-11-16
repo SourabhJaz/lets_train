@@ -19,6 +19,7 @@ import {getAllCategories} from './actions/categoryActions';
 import {getAllTrainings} from './actions/trainingActions';
 import {loginRequest, logout} from './actions/loginActions';
 import {getUsers} from './actions/userActions';
+import {API_URL} from './constants/configConstants';
 
 function TabContainer(props) {
   return (
@@ -50,7 +51,7 @@ class AdminApp extends React.Component {
   };
   getAllDepartments(){
       let params = {
-          url: 'http://127.0.0.1:8000/api/department/',
+          url: `http://${API_URL}/api/department/`,
           method: 'get',
           authorization: 'Token '+this.props.token
       }
@@ -58,7 +59,7 @@ class AdminApp extends React.Component {
   }
   getAllCategories(){
       let params = {
-          url: 'http://127.0.0.1:8000/api/category/',
+          url: `http://${API_URL}/api/category/`,
           method: 'get',
           authorization: 'Token '+this.props.token
       }
@@ -66,7 +67,7 @@ class AdminApp extends React.Component {
   }
   getAllTrainings(){
       let params = {
-          url: 'http://127.0.0.1:8000/api/training/',
+          url: `http://${API_URL}/api/training/`,
           method: 'get',
           authorization: 'Token '+this.props.token
       }
@@ -74,7 +75,7 @@ class AdminApp extends React.Component {
   }
   getAllUsers(){
     let params = {
-        url: 'http://127.0.0.1:8000/api/user/',
+        url: `http://${API_URL}/api/user/`,
         method: 'get',
         authorization: 'Token '+this.props.token
     }

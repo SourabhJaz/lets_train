@@ -1,12 +1,13 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
-import ButtonView from '../../components/ButtonView';
 import Training from './Training';
 import Button from '@material-ui/core/Button';
 import {getAllTrainings} from '../../actions/trainingActions';
 import {setNotification} from '../../actions/notificationActions';
 import {ERROR} from '../../constants/frontEndConstants';
 import { connect } from 'react-redux';
+import ButtonListView from '../../components/ButtonListView';
+import {API_URL} from '../../constants/configConstants';
 
 class CategoryTraining extends React.Component{
 	state = {
@@ -22,7 +23,7 @@ class CategoryTraining extends React.Component{
     }
     _getCategoryTrainings(id){
       let params = {
-          url: 'http://127.0.0.1:8000/api/category/'+id+'/category_training/',
+          url: `http://${API_URL}/api/category/${id}/category_training/`,
           method: 'get',
           authorization: 'Token '+this.props.token
       }
@@ -62,7 +63,7 @@ class CategoryTraining extends React.Component{
 		const trainingList = this.props.trainingList;
 		return (
 			<div >
-				{!category && <ButtonView chipData={data} handleClick={this._getCategoryTrainings.bind(this)} />}
+				{!category && <ButtonListView chipData={data} handleClick={this._getCategoryTrainings.bind(this)} />}
 				<p>
 					{category && <Button variant="contained" color="default" onClick={this._resetCategory.bind(this)}>
 						{'Back to Categories'}

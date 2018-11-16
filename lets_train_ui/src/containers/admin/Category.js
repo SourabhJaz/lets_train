@@ -13,6 +13,7 @@ import {postCategory} from '../../actions/categoryActions';
 import FormControl from '@material-ui/core/FormControl';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
+import {API_URL} from '../../constants/configConstants';
 
 const styles = theme => ({
   root: {
@@ -59,7 +60,7 @@ class Category extends React.Component{
 	      category_name: this.state.category
 	    };
 	    let params = {
-	        url: 'http://127.0.0.1:8000/api/category/',
+	        url: `http://${API_URL}/api/category/`,
 	        method: 'post',
 	        formData:formData,
 	        authorization: 'Token '+this.props.token

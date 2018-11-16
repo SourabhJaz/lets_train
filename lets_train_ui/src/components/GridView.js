@@ -30,6 +30,8 @@ class GridView extends React.Component{
       <Card key={tile.id} className={classes.card}>
           <ReactPlayer url={tile.path} 
             controls={true}
+            width='75%'
+            height='75%'
             config={{
                 file:{
                   attributes:{
