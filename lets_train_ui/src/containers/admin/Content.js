@@ -110,7 +110,7 @@ class Content extends React.Component{
 		const trainingList = this.props.trainingList;
 		return (
 			<div >
-				   <Button variant="outlined" color="primary" component="span" onClick={this.handleClickOpen}>
+				   <Button variant="contained" color="primary" component="span" onClick={this.handleClickOpen}>
 						Add Content
 					</Button>
 					<Dialog
@@ -145,7 +145,7 @@ class Content extends React.Component{
 								    	(<MenuItem
 							                key={data.id}
 							                value={data.id}>
-							              {data.name}
+							              {data.name.toUpperCase()}
 							            </MenuItem>)
 								    )}
 							    </Select>

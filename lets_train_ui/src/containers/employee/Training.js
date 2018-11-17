@@ -33,6 +33,9 @@ class Training extends React.Component{
     		training_id: undefined
     	});    	
     }
+    componentDidMount() {
+      window.scrollTo(0, 0)
+    }
 	render() {
 		const data = this._makeTrainingList();	
 		const training_id = this.state.training_id;	

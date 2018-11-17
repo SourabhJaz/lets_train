@@ -105,10 +105,10 @@ class Training extends React.Component{
 		const departmentList = this.props.departmentList;	
 		return (
 			<div>
-				<ChipView chipData={data} handleClick={function() { return false; }}/>
-				<Button variant="outlined" color="primary" component="span" onClick={this.handleClickOpen}>
+				<Button variant="contained" color="primary" component="span" onClick={this.handleClickOpen}>
 					Add Training
 				</Button>
+				<ChipView chipData={data} handleClick={function() { return false; }}/>
 				<Dialog
 				  open={this.state.open}
 				  onClose={this.handleClose}
@@ -138,7 +138,7 @@ class Training extends React.Component{
 								(<MenuItem
 								key={data.id}
 								value={data.id}>
-								{data.category_name}
+								{data.category_name.toUpperCase()}
 								</MenuItem>)
 							)}
 							</Select>
@@ -154,7 +154,7 @@ class Training extends React.Component{
 								(<MenuItem
 								key={data.id}
 								value={data.id}>
-								{data.department_name}
+								{data.department_name.toUpperCase()}
 								</MenuItem>)
 							)}
 							</Select>
@@ -162,6 +162,7 @@ class Training extends React.Component{
 					    <FormControl className={classes.formControl} fullWidth>
 						    <TextField
 						      autoFocus
+						      multiline
 						      margin="dense"
 						      id="name"
 						      value={this.state.description}

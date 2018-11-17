@@ -36,7 +36,7 @@ class SelectView extends React.Component {
     const { classes } = this.props;
     return (
       <form className={classes.root} autoComplete="off">
-        <FormControl className={classes.formControl} fullwidth>
+        <FormControl className={classes.formControl}>
           <InputLabel htmlFor="simple">{this.props.title}</InputLabel>
           <Select
             onChange={this.handleChange}
@@ -44,7 +44,7 @@ class SelectView extends React.Component {
             input={<Input id="simple" />}
           >
           {this.props.menuData.map(data => {
-              return (<MenuItem key={data.key} value={data.key}>{data.label}</MenuItem>)
+              return (<MenuItem key={data.key} value={data.key}>{data.label.toUpperCase()}</MenuItem>)
             }
           )}
           </Select>

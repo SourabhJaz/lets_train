@@ -1,6 +1,6 @@
 // POST
-// User:
-{"post": 
+{"post": [
+  // User:
   [{
     "username":"00000",
     "first_name":"raghav",
@@ -18,7 +18,7 @@
     },
     "is_staff": false
   }],
-  
+
   // Category:
   {
     "category_name": "motivation"
@@ -33,7 +33,9 @@
   {
     "name": "Testing",
     "category": 1,
-    "details": {}
+    "details": {
+      "description": "Description about training"
+    }
   },
 
   // Content:
@@ -57,10 +59,10 @@
     "user": 1,
     "content": 2
   }
-},
+]},
 // GET
-// USER:
-{"get":
+{"get": [
+  // USER:
   {
       "count": 4,
       "next": null,
@@ -107,9 +109,9 @@
       "training_id": [3]
     }]
   }
-}
 // USER_DEPARTMENT_TRAINING:
 // http://localhost:8000/api/user/65465/department_training/
 
 // CATEGORY_TRAINING:
-// http://localhost:8000/api/category/2/category_training/
+// http://localhost:8000/api/category/2/category_training
+]}

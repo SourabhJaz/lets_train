@@ -12,11 +12,6 @@ const styles = {
     minWidth: 275,
     marginBottom: 20,
   },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
   pos: {
     marginBottom: 12,
   },

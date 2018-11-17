@@ -147,7 +147,7 @@ class User extends React.Component{
 			<div>
 			<CSVReader
       			cssClass="react-csv-input"
-      			label="Select CSV file"
+      			label="Select CSV file  "
       			onFileLoaded={this.handleData}
     		/>
 				<TableView tableHeader={tableHeader} 

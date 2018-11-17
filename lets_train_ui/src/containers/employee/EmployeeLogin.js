@@ -85,9 +85,9 @@ class EmployeeLogin extends React.Component {
           <Paper className={classes.root} elevation={5}>           
           <AppBar position="static">
             <Toolbar className={classes.toolBar}>
+              <FitnessCenter /> 
               <Typography variant="headline" color="inherit">
                 Let's Train
-                <FitnessCenter />
               </Typography>
             </Toolbar>
           </AppBar>

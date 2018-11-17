@@ -133,15 +133,15 @@ class AdminApp extends React.Component {
             <Tab label="Department" />
             <Tab label="Category" />
             <Tab label="Training" />
-            <Tab label="User" />
             <Tab label="Content" />
+            <Tab label="User" />
           </Tabs>
         </AppBar>
         {value === 0 && <TabContainer><Department  /></TabContainer>}
         {value === 1 && <TabContainer><Category /></TabContainer>}
         {value === 2 && <TabContainer><Training /></TabContainer>}
-        {value === 3 && <TabContainer><User  /></TabContainer>}
-        {value === 4 && <TabContainer><Content /></TabContainer>}
+        {value === 3 && <TabContainer><Content /></TabContainer>}
+        {value === 4 && <TabContainer><User  /></TabContainer>}
       </div>
     );
   }

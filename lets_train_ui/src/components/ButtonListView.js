@@ -24,9 +24,10 @@ const styles = theme => ({
     height: '100%',
   },
   typography:{
-    color: 'rgba(255, 255, 255, 0.54)',  
+    color: '#FAFAFA',  
   },
   icon: {
+    marginLeft: theme.spacing.unit,
     color: 'rgba(255, 255, 255, 0.54)',
     fontSize: theme.spacing.unit * 5,
   },

@@ -73,10 +73,10 @@ class Category extends React.Component{
 		const data = this._makeCategoryList();
 		return (
 			<div >
-				<ChipView chipData={data} handleClick={function() { return false; }} />
-				<Button variant="outlined" color="primary" component="span" onClick={this.handleClickOpen}>
+				<Button variant="contained" color="primary" component="span" onClick={this.handleClickOpen}>
 					Add Category
 				</Button>
+				<ChipView chipData={data} handleClick={function() { return false; }} />
 				<Dialog
 				  open={this.state.open}
 				  onClose={this.handleClose}

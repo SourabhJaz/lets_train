@@ -32,7 +32,7 @@ const theme = createMuiTheme({
 
 function TabContainer(props) {
   return (
-    <Typography component="div" style={{ padding: 8 * 3 }}>
+    <Typography component="div" style={{ padding: theme.spacing.unit*2 }}>
       {props.children}
     </Typography>
   );
@@ -97,12 +97,12 @@ class EmployeeApp extends React.Component {
         <div className={classes.root}>
           <AppBar position="static">
             <Toolbar>
+              <FitnessCenter />
               <Typography variant="headline" color="inherit" className={classes.grow}>
                 Let's Train
-                <FitnessCenter />
               </Typography>
               <Button variant="raised" color="secondary" onClick={this.logoutRequest.bind(this)} >
-              Log out
+                Log out
               </Button>
             </Toolbar>
           </AppBar>

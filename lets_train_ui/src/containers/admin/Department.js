@@ -75,12 +75,12 @@ class Department extends React.Component{
 		const data = this._makeDepartmentList();		
 		return (
 			<div >
+				<Button variant="contained" color="primary" component="span" onClick={this.handleClickOpen}>
+					Add Department
+				</Button>
 				<ChipView chipData={data} handleClick={function() { return false; }} 
 				 buttonLabel="Add Department" />
 				<div>
-					<Button variant="outlined" color="primary" component="span" onClick={this.handleClickOpen}>
-						Add Department
-					</Button>
 					<Dialog
 					  open={this.state.open}
 					  onClose={this.handleClose}
