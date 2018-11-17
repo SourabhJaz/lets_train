@@ -32,22 +32,17 @@
 - npm install
 - npm start
 
-## Creating admin user:
+## Creating an admin user for application:
 
 - Comment authentication in *lets_train_backend/api_app/views.py*
-
   - `	# authentication_classes = (TokenAuthentication,)`
-
   - `	# permission_classes = (IsAdminOrReadOnly, )`
-
-
 - **URL**: *localhost:8000/api/user/*
-
 - **POST**:
  
    [{
 
-        "username":"admin",
+        "username":"1234",
 
         "first_name":"admin",
 
@@ -64,7 +59,15 @@
         "is_staff": true
 
   }]
-
+- This will create an admin user with username **1234** and password **1234**
 - Uncomment authentication in *lets_train_backend/api_app/views.py*
 
+## Accessing the application:
+
+### Admin view
+
 - *Go to localhost:3000/admin/ on your browser.*
+
+### Employee view
+
+- *Go to localhost:3000/ on your browser.*
