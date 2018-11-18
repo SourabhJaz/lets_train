@@ -1,6 +1,41 @@
-# Let's Train
+<p align="center">
+    <img
+      alt="Let's Trains"
+      src="lets_train_ui/public/logo.png"
+      width="400"
+    />
+</p>
 
-## Postgres setup for MAC:
+
+# Table of Contents
+
+* [Technology](#technology)
+* [Setup](#setup)
+* [Building](#building)
+* [Modeling](#modeling)
+
+## Technology
+
+### Frontend
+- ReactJS
+- Redux
+- Material-UI. 
+
+### Backend
+- Django
+- Django rest framework(DRF) 
+- PostgreSQL. 
+
+### Authentication
+- Token authentication.
+
+### Interaction
+- REST based.
+
+
+## Setup
+
+### Postgres setup for MAC:
 
 - `brew install postgres`
 
@@ -16,7 +51,7 @@
 
 - `GRANT ALL PRIVILEGES ON DATABASE training TO admin;`
 
-## Backend setup:
+### Backend setup:
 
 - Go to backend folder *lets_train_backend*
 - virtualenv venv
@@ -26,19 +61,20 @@
 - python manage.py migrate
 - python manage.py runserver
 
-## Frontend setup:
+### Frontend setup:
 
 - Go to frontend folder *lets_train_ui*
 - npm install
 - npm start
 
-## Creating an admin user for application:
+### Creating an admin user for application:
 
 - Comment authentication in *lets_train_backend/api_app/views.py*
   - `	# authentication_classes = (TokenAuthentication,)`
   - `	# permission_classes = (IsAdminOrReadOnly, )`
 - **URL**: *localhost:8000/api/user/*
-- **POST**:
+- **Method**: POST
+- **JSON**:
  
    [{
 
@@ -62,12 +98,38 @@
 - This will create an admin user with username **1234** and password **1234**
 - Uncomment authentication in *lets_train_backend/api_app/views.py*
 
-## Accessing the application:
+## Building:
 
-### Admin view
+### Start Django backend:
+- Go to backend folder *lets_train_backend*
+- source venv/bin/activate
+- python manage.py runserver
+
+### Start React frontend:
+- Go to frontend folder *lets_train_ui*
+- npm start
+
+### Access admin view:
 
 - *Go to localhost:3000/admin/ on your browser.*
 
-### Employee view
+### Access employee view:
 
 - *Go to localhost:3000/ on your browser.*
+
+## Modeling:
+
+<p align="center">
+    <img
+      alt="model"
+      src="lets_train_ui/public/ER.png"
+    />
+</p>
+
+- **Categories** are used to classify the **Trainings**.
+- **Departments** are the divisions made by the organisation.
+- **Training** can have a **Category**.
+- **Training** can have a **Department**.
+- **Training** can have multiple **Contents**.
+- **Content** can be a part of multiple **Trainings**.
+
