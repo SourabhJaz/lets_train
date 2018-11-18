@@ -38,17 +38,11 @@
 ### Postgres setup for MAC:
 
 - `brew install postgres`
-
 - `psql postgres`
-
 - `create role admin with login password '1234';`
-
 - `\q`
-
 - `psql postgres -U admin`
-
 - `create database training;`
-
 - `GRANT ALL PRIVILEGES ON DATABASE training TO admin;`
 
 ### Backend setup:
@@ -75,7 +69,6 @@
 - **URL**: *localhost:8000/api/user/*
 - **Method**: POST
 - **JSON**:
- 
    [{
 
         "username":"1234",
@@ -125,6 +118,7 @@
       src="lets_train_ui/public/ER.png"
     />
 </p>
+
 
 - **Categories** are used to classify the **Trainings**.
 - **Departments** are the divisions made by the organisation.
