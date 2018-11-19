@@ -16,6 +16,8 @@ import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import compose from 'recompose/compose';
 import { withStyles } from '@material-ui/core/styles';
 import {API_URL} from '../../constants/configConstants';
@@ -28,6 +30,10 @@ const styles = theme => ({
   formControl: {
     margin: theme.spacing.unit,
     minWidth: 200,
+  },
+  paper:{
+  	width: theme.spacing.unit * 25,
+  	padding: theme.spacing.unit * 2,
   }
 });
 
@@ -105,9 +111,9 @@ class Content extends React.Component{
 
 	render() {
 		const { classes } = this.props;
+		const {trainingList, loaded, total} = this.props;
 		const data = this._makeTrainingList();
 		const training_id = this.state.training_id;
-		const trainingList = this.props.trainingList;
 		return (
 			<div >
 				   <Button variant="contained" color="primary" component="span" onClick={this.handleClickOpen}>
@@ -175,7 +181,13 @@ class Content extends React.Component{
 					</Dialog>
 					<SelectView menuData={data} title={'Select training to view content'} handleSelect={
                                        this._handleClick.bind(this)} />
-					{training_id && <TrainingContent id={training_id} />}
+					{training_id && loaded === 0 && <TrainingContent id={training_id} />}
+					{loaded > 0 &&
+					<Paper className={classes.paper}>
+						<Typography variant="headline" color="textPrimary">
+							{`${Math.round(loaded*100/total)}% Uploaded`}
+						</Typography>
+					</Paper>}
 			</div>
 		);
 	}		

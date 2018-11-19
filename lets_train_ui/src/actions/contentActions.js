@@ -37,6 +37,13 @@ export function postTrainingContent(params){
             type: SUCCESS,
             message: "Content added!"
           }))
+      }).then(() => {
+        setTimeout(() => {
+          dispatch(setContentProgress({
+            loaded: 0,
+            total: 0
+          })
+        )}, 2000);
       }).catch(
       error => {
           dispatch(setNotification({
